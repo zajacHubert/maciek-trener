@@ -4,13 +4,14 @@ import type { ReactNode } from "react";
 
 export const CHOOSE_PLAN_EVENT = "choose-plan";
 
-// Przewija do formularza i ustawia w nim wybrany pakiet.
+// Przewija do formularza i ustawia w nim wybrany pakiet (`option` to tekst
+// opcji z selecta, patrz planOption w data.ts).
 export default function ChoosePlanLink({
-  plan,
+  option,
   className,
   children,
 }: {
-  plan: string;
+  option: string;
   className?: string;
   children: ReactNode;
 }) {
@@ -19,7 +20,7 @@ export default function ChoosePlanLink({
       href="#kontakt"
       className={className}
       onClick={() =>
-        window.dispatchEvent(new CustomEvent(CHOOSE_PLAN_EVENT, { detail: plan }))
+        window.dispatchEvent(new CustomEvent(CHOOSE_PLAN_EVENT, { detail: option }))
       }
     >
       {children}

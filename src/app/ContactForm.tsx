@@ -2,6 +2,7 @@
 
 import { useEffect, useState, type FormEvent } from "react";
 import { CHOOSE_PLAN_EVENT } from "./ChoosePlanLink";
+import { PLANS, planOption } from "./data";
 import styles from "./page.module.css";
 
 const SELECTS = [
@@ -24,14 +25,9 @@ const SELECTS = [
   {
     name: "package",
     label: "Czy wybrałeś już pakiet?",
-    options: [
-      "Pakiet Start – 1499 zł",
-      "Pakiet Fundament – 2699 zł (najczęściej wybierany)",
-      "Pakiet Transformacja – 4999 zł",
-      "Jeszcze nie wiem",
-    ],
+    options: [...PLANS.map(planOption), "Jeszcze nie wiem"],
   },
-] as const;
+];
 
 type Values = { name: string; email: string; phone: string };
 type Field = keyof Values | "contact";
@@ -75,12 +71,7 @@ export default function ContactForm() {
 
   // Kliknięcie „Wybieram” w cenniku ustawia pakiet w selekcie.
   useEffect(() => {
-    const options = SELECTS.find((s) => s.name === "package")!.options;
-    const onChoose = (e: Event) => {
-      const name = (e as CustomEvent<string>).detail;
-      const option = options.find((o) => o.startsWith(name));
-      if (option) setPlan(option);
-    };
+    const onChoose = (e: Event) => setPlan((e as CustomEvent<string>).detail);
     window.addEventListener(CHOOSE_PLAN_EVENT, onChoose);
     return () => window.removeEventListener(CHOOSE_PLAN_EVENT, onChoose);
   }, []);

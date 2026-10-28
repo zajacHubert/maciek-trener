@@ -4,57 +4,23 @@ import ChoosePlanLink from "./ChoosePlanLink";
 import ContactForm from "./ContactForm";
 import CountUp from "./CountUp";
 import NavAutoClose from "./NavAutoClose";
+import {
+  ADDRESS,
+  CONTACT,
+  FEATURED_LABEL,
+  NAV,
+  PLANS,
+  STATS,
+  planOption,
+} from "./data";
+import { CurrentYear, TrainerAge } from "./CurrentYear";
 
-const NAV = [
-  { href: "#start", label: "Start" },
-  { href: "#o-mnie", label: "O mnie" },
-  { href: "#oferta", label: "Oferta" },
-  { href: "#cennik", label: "Cennik" },
-  { href: "#studio", label: "Lokalizacja" },
-  { href: "#kontakt", label: "Kontakt" },
-];
+const MAP_URL = `https://maps.google.com/maps?q=${encodeURIComponent(
+  `Zdrofit, ${ADDRESS.street.replace("ul. ", "")}, ${ADDRESS.city}`,
+)}&z=15&output=embed`;
 
-const STATS = [
-  { value: "20+", label: "lat treningu siłowego" },
-  { value: "10+", label: "lat doświadczenia jako trener" },
-  { value: "10000+", label: "godzin treningów personalnych" },
-  { value: "100%", label: "pasji, zaangażowania i indywidualnego podejścia" },
-];
-
-const PLANS = [
-  {
-    name: "Pakiet Start",
-    price: "1499 zł",
-    features: [
-      "8 treningów",
-      "Analiza mobilności i zakresu ruchu",
-      "Indywidualny plan treningowy",
-      "Wskazówki żywieniowe",
-    ],
-  },
-  {
-    name: "Pakiet Fundament",
-    price: "2699 zł",
-    features: [
-      "15 treningów (2–3 razy w tygodniu)",
-      "Analiza mobilności i zakresu ruchu",
-      "Indywidualny plan treningowy + dieta",
-      "Raport postępów co 2 tygodnie",
-    ],
-    featured: true,
-  },
-  {
-    name: "Pakiet Transformacja",
-    price: "4999 zł",
-    features: [
-      "30 treningów (3–4 razy w tygodniu)",
-      "Analiza mobilności i zakresu ruchu",
-      "Indywidualny plan treningowy + dieta",
-      "Raport postępów raz w tygodniu",
-      "Stały kontakt i wsparcie trenerskie",
-    ],
-  },
-];
+const cx = (...classes: (string | false | undefined)[]) =>
+  classes.filter(Boolean).join(" ");
 
 export default function Home() {
   return (
@@ -120,8 +86,10 @@ export default function Home() {
           <div className={styles.heroOverlay} />
 
           <div className={styles.heroContent}>
-            <h1 className={styles.heroTitle}>Maciej Lubowski</h1>
-            <p className={styles.heroSubtitle}>Trener personalny</p>
+            <h1 className={styles.heroTitle}>
+              Maciej Lubowski
+              <span className={styles.heroSubtitle}>Trener personalny</span>
+            </h1>
             <p className={styles.heroTagline}>
               Zbudujmy formę, z której będziesz dumny
             </p>
@@ -148,23 +116,23 @@ export default function Home() {
           </div>
         </section>
 
-        <section className={styles.stats}>
+        <section className={styles.stats} aria-labelledby="stats-title">
           <div className={styles.container}>
-            <div className={styles.statsGrid}>
+            <h2 id="stats-title" className={styles.srOnly}>
+              Doświadczenie w liczbach
+            </h2>
+            <ul className={styles.statsGrid}>
               {STATS.map((stat) => (
-                <div key={stat.label} className={styles.stat}>
+                <li key={stat.label} className={styles.stat}>
                   <CountUp value={stat.value} className={styles.statValue} />
                   <span className={styles.statLabel}>{stat.label}</span>
-                </div>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         </section>
 
-        <section
-          id="o-mnie"
-          className={`${styles.section} ${styles.aboutSection}`}
-        >
+        <section id="o-mnie" className={cx(styles.section, styles.aboutSection)}>
           <div className={styles.aboutPhoto}>
             <Image
               src="/trener.jpeg"
@@ -173,12 +141,12 @@ export default function Home() {
               sizes="(max-width: 960px) 100vw, 60vw"
             />
           </div>
-          <div className={`${styles.container} ${styles.about}`}>
+          <div className={cx(styles.container, styles.about)}>
             <div className={styles.aboutText}>
               <p className={styles.eyebrow}>O mnie</p>
               <h2 className={styles.sectionTitle}>Poznaj trenera</h2>
               <p className={styles.lead}>
-                Nazywam się Maciej Lubowski. Mam 38 lat. Od ponad dekady pracuję
+                Nazywam się Maciej Lubowski. Mam <TrainerAge /> lat. Od ponad dekady pracuję
                 jako trener personalny, a moja przygoda z siłownią trwa
                 nieprzerwanie od ponad 20 lat.
               </p>
@@ -208,7 +176,6 @@ export default function Home() {
               zawodową, pracujący na odpowiedzialnych stanowiskach, często
               rodzice, którzy zapomnieli o sobie.
             </p>
-            <br />
             <p>
               Takie osoby potrzebują trenera, który rozumie ich problemy,
               przygotuje odpowiedni plan działania i będzie realnym wsparciem
@@ -218,21 +185,18 @@ export default function Home() {
           </div>
         </section>
 
-        <section
-          id="cennik"
-          className={`${styles.section} ${styles.sectionAlt}`}
-        >
+        <section id="cennik" className={cx(styles.section, styles.sectionAlt)}>
           <div className={styles.container}>
             <p className={styles.eyebrow}>Plany i ceny</p>
             <h2 className={styles.sectionTitle}>Cennik</h2>
             <div className={styles.plans}>
               {PLANS.map((plan) => (
-                <div
+                <article
                   key={plan.name}
-                  className={`${styles.plan} ${plan.featured ? styles.planFeatured : ""}`}
+                  className={cx(styles.plan, plan.featured && styles.planFeatured)}
                 >
                   {plan.featured && (
-                    <span className={styles.planBadge}>Najczęściej wybierany</span>
+                    <span className={styles.planBadge}>{FEATURED_LABEL}</span>
                   )}
                   <h3>{plan.name}</h3>
                   <p className={styles.planPrice}>{plan.price}</p>
@@ -242,31 +206,31 @@ export default function Home() {
                     ))}
                   </ul>
                   <ChoosePlanLink
-                    plan={plan.name}
+                    option={planOption(plan)}
                     className={
                       plan.featured ? styles.btnPrimary : styles.btnOutline
                     }
                   >
                     Wybieram
                   </ChoosePlanLink>
-                </div>
+                </article>
               ))}
             </div>
           </div>
         </section>
 
-        <section className={`${styles.cta} ${styles.parallax}`}>
+        <section className={cx(styles.cta, styles.parallax)}>
           <h2 className={styles.ctaTitle}>
-            Gotowy na zmianę? <br />
-            Poprowadzę Cię krok po kroku
+            <span>Gotowy na zmianę?</span>
+            <span>Poprowadzę Cię krok po kroku</span>
           </h2>
           <a href="#kontakt" className={styles.btnPrimary}>
             Zarezerwuj trening
           </a>
         </section>
 
-        <section id="studio" className={`${styles.studio} ${styles.parallax}`}>
-          <div className={`${styles.container} ${styles.studioInner}`}>
+        <section id="studio" className={cx(styles.studio, styles.parallax)}>
+          <div className={cx(styles.container, styles.studioInner)}>
             <div>
               <h2 className={styles.sectionTitle}>Lokalizacja</h2>
               <p className={styles.lead}>
@@ -277,23 +241,25 @@ export default function Home() {
             </div>
             <div className={styles.studioInfo}>
               <div>
-                <h4>Adres</h4>
-                <p>Zdrofit Koński Jar</p>
-                <p>ul. Koński Jar 6</p>
-                <p>02-785 Warszawa – Ursynów</p>
+                <h3>Adres</h3>
+                <address>
+                  <p>{ADDRESS.place}</p>
+                  <p>{ADDRESS.street}</p>
+                  <p>{ADDRESS.city}</p>
+                </address>
               </div>
               <div>
-                <h4>Godziny</h4>
+                <h3>Godziny</h3>
                 <p>Poniedziałek – Piątek</p>
                 <p>6:30 – 21:00</p>
               </div>
             </div>
           </div>
 
-          <div id="mapa" className={`${styles.container} ${styles.map}`}>
+          <div id="mapa" className={cx(styles.container, styles.map)}>
             <iframe
-              title="Mapa – Zdrofit, ul. Koński Jar 6, Warszawa"
-              src="https://maps.google.com/maps?q=Zdrofit%2C%20Ko%C5%84ski%20Jar%206%2C%2002-785%20Warszawa&z=15&output=embed"
+              title={`Mapa – ${ADDRESS.place}, ${ADDRESS.street}, ${ADDRESS.city}`}
+              src={MAP_URL}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />
@@ -301,17 +267,19 @@ export default function Home() {
         </section>
 
         <section id="kontakt" className={styles.section}>
-          <div className={`${styles.container} ${styles.contact}`}>
+          <div className={cx(styles.container, styles.contact)}>
             <div>
               <h2 className={styles.sectionTitle}>Kontakt</h2>
               <p className={styles.eyebrow}>
                 Napisz lub zadzwoń, jeśli masz pytania
               </p>
               <p className={styles.contactLine}>
-                <a href="mailto:kontakt@example.com">kontakt@example.com</a>
+                <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
               </p>
               <p className={styles.contactLine}>
-                <a href="tel:+48123456789">+48 123 456 789</a>
+                <a href={`tel:${CONTACT.phone.replace(/\s/g, "")}`}>
+                  {CONTACT.phone}
+                </a>
               </p>
             </div>
 
@@ -321,7 +289,7 @@ export default function Home() {
       </main>
 
       <footer className={styles.footer}>
-        © 2026 Maciej Lubowski · Trener personalny
+        © <CurrentYear /> Maciej Lubowski · Trener personalny
       </footer>
     </>
   );

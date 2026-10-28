@@ -14,6 +14,16 @@
   --font-heading: var(--font-oswald), "Arial Narrow", sans-serif;
   --font-body: var(--font-open-sans), Arial, sans-serif;
 
+  /* Skala czcionek – wszystkie rozmiary na stronie biorą się stąd */
+  --fs-display: clamp(40px, 5vw, 64px); /* duże liczby: ceny, statystyki */
+  --fs-h1: clamp(30px, 4.4vw, 56px);
+  --fs-h2: clamp(28px, 3.8vw, 46px);
+  --fs-h3: clamp(20px, 2.2vw, 26px);
+  --fs-lead: clamp(19px, 1.9vw, 23px);
+  --fs-body: clamp(17px, 1.7vw, 20px);
+  --fs-ui: clamp(15px, 1.3vw, 17px); /* przyciski, menu, etykiety */
+  --fs-small: clamp(13px, 1.1vw, 14px);
+
   --header-h: 84px;
   --container: 1180px;
 
@@ -31,20 +41,17 @@ html {
   scroll-padding-top: var(--header-h);
 }
 
-html,
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
+  /* clip zamiast hidden: nie tworzy kontenera przewijania, więc nie psuje
+     kotwic ani position: sticky */
+  overflow-x: clip;
   min-height: 100%;
   color: var(--text);
   background: var(--bg);
   font-family: var(--font-body);
   font-weight: 300;
   font-stretch: 75%;
-  font-size: clamp(15px, 0.9rem + 0.25vw, 17px);
+  font-size: var(--fs-ui);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

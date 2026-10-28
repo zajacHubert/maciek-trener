@@ -13,15 +13,16 @@ export default function CountUp({
   className?: string;
 }) {
   const match = value.match(/^(\d+)(.*)$/);
+  const isNumber = match !== null;
   const target = match ? Number(match[1]) : 0;
   const suffix = match ? match[2] : "";
 
   const ref = useRef<HTMLSpanElement>(null);
-  const [current, setCurrent] = useState<number | null>(match ? 0 : null);
+  const [current, setCurrent] = useState<number | null>(isNumber ? 0 : null);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el || !match) return;
+    if (!el || !isNumber) return;
 
     let frame = 0;
 
@@ -50,8 +51,7 @@ export default function CountUp({
       observer.disconnect();
       cancelAnimationFrame(frame);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [target]);
+  }, [isNumber, target]);
 
   return (
     <span ref={ref} className={className} aria-label={value}>
