@@ -10,8 +10,8 @@
   --accent-dark: #a94130;
   --accent-light: #ffcac2;
 
-  --font-heading: var(--font-barlow-condensed), "Arial Narrow", sans-serif;
-  --font-body: var(--font-barlow), Arial, sans-serif;
+  --font-heading: var(--font-oswald), "Arial Narrow", sans-serif;
+  --font-body: var(--font-open-sans), Arial, sans-serif;
 
   --header-h: 84px;
   --container: 1180px;
@@ -42,7 +42,8 @@ body {
   background: var(--bg);
   font-family: var(--font-body);
   font-weight: 300;
-  font-size: 16px;
+  font-stretch: 75%;
+  font-size: clamp(15px, 0.9rem + 0.25vw, 17px);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -58,10 +59,11 @@ h2,
 h3,
 h4 {
   font-family: var(--font-heading);
-  font-weight: 600;
+  font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  line-height: 1.1;
+  line-height: 1.15;
+  overflow-wrap: break-word;
 }
 
 ::selection {

@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
-import { Barlow, Barlow_Condensed } from "next/font/google";
+import { Open_Sans, Oswald } from "next/font/google";
 import "./globals.css";
 
-const barlow = Barlow({
-  variable: "--font-barlow",
+// Czcionki jak w szablonie Wix „The Boxer”: nagłówki DIN Neuzeit Grotesk
+// Condensed (płatna – zastąpiona Oswaldem), teksty Open Sans Condensed.
+const openSans = Open_Sans({
+  variable: "--font-open-sans",
   subsets: ["latin", "latin-ext"],
-  weight: ["300", "400", "500"],
+  axes: ["wdth"],
 });
 
-const barlowCondensed = Barlow_Condensed({
-  variable: "--font-barlow-condensed",
+const oswald = Oswald({
+  variable: "--font-oswald",
   subsets: ["latin", "latin-ext"],
-  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -24,7 +25,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="pl"
-      className={`${barlow.variable} ${barlowCondensed.variable}`}
+      className={`${openSans.variable} ${oswald.variable}`}
     >
       <body>{children}</body>
     </html>

@@ -300,6 +300,15 @@ export default function Home() {
               </div>
             </div>
           </div>
+
+          <div id="mapa" className={`${styles.container} ${styles.map}`}>
+            <iframe
+              title="Mapa – Zdrofit Koński Jar, Warszawa Ursynów"
+              src="https://maps.google.com/maps?q=Zdrofit%20Ko%C5%84ski%20Jar%2C%20Ursyn%C3%B3w%2C%20Warszawa&z=15&output=embed"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
         </section>
 
         <section id="kontakt" className={styles.section}>
@@ -353,15 +362,6 @@ export default function Home() {
                 Wyślij
               </button>
             </form>
-          </div>
-
-          <div id="mapa" className={`${styles.container} ${styles.map}`}>
-            <iframe
-              title="Mapa – Zdrofit Koński Jar, Warszawa Ursynów"
-              src="https://maps.google.com/maps?q=Zdrofit%20Ko%C5%84ski%20Jar%2C%20Ursyn%C3%B3w%2C%20Warszawa&z=15&output=embed"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
           </div>
         </section>
       </main>
