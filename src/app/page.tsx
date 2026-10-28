@@ -1,5 +1,6 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import CountUp from "./CountUp";
 
 const NAV = [
   { href: "#start", label: "Start" },
@@ -41,6 +42,33 @@ const PLANS = [
     period: "miesięcznie",
     features: ["Plan treningowy", "Cotygodniowe raporty", "Korekta techniki"],
   },
+];
+
+const GOALS = [
+  "Chcę rozpocząć przygodę z siłownią",
+  "Powrót do formy po przerwie",
+  "Lepsza sylwetka",
+  "Zdrowie i sprawność na lata",
+  "Inne",
+];
+
+const FREQUENCIES = ["2 razy", "3 razy", "4 razy", "Jeszcze nie wiem"];
+
+const PACKAGES = [
+  "Pakiet Start – 1499 zł",
+  "Pakiet Fundament – 2699 zł (najczęściej wybierany)",
+  "Pakiet Transformacja – 4999 zł",
+  "Jeszcze nie wiem",
+];
+
+const FORM_CHOICES = [
+  { name: "goal", legend: "Jaki jest Twój główny cel?", options: GOALS },
+  {
+    name: "frequency",
+    legend: "Ile razy w tygodniu chcesz trenować?",
+    options: FREQUENCIES,
+  },
+  { name: "package", legend: "Czy wybrałeś już pakiet?", options: PACKAGES },
 ];
 
 export default function Home() {
@@ -108,7 +136,10 @@ export default function Home() {
           <div className={styles.heroContent}>
             <h1 className={styles.heroTitle}>Maciej Lubowski</h1>
             <p className={styles.heroSubtitle}>Trener personalny</p>
-            <a href="#studio" className={styles.heroLocation}>
+            <p className={styles.heroTagline}>
+              Zbudujmy formę, z której będziesz dumny
+            </p>
+            <a href="#mapa" className={styles.heroLocation}>
               <svg
                 viewBox="0 0 24 24"
                 width="22"
@@ -136,7 +167,7 @@ export default function Home() {
             <div className={styles.statsGrid}>
               {STATS.map((stat) => (
                 <div key={stat.label} className={styles.stat}>
-                  <span className={styles.statValue}>{stat.value}</span>
+                  <CountUp value={stat.value} className={styles.statValue} />
                   <span className={styles.statLabel}>{stat.label}</span>
                 </div>
               ))}
@@ -171,11 +202,10 @@ export default function Home() {
                 Nie wierzę w gotowe szablony i drogi na skróty. Twój plan musi
                 być skrojony pod Twoje życie, Twoje cele i Twój czas.
               </p>
-              <br />
-              <p>
+              <blockquote className={styles.quote}>
                 „Zacznij tam, gdzie jesteś. Użyj tego, co masz. Rób to, co
                 możesz.”
-              </p>
+              </blockquote>
             </div>
           </div>
         </section>
@@ -260,7 +290,7 @@ export default function Home() {
             <div className={styles.studioInfo}>
               <div>
                 <h4>Adres</h4>
-                <p>ul. Przykładowa 1</p>
+                <p>Zdrofit Koński Jar</p>
                 <p>Warszawa – Ursynów</p>
               </div>
               <div>
@@ -288,32 +318,50 @@ export default function Home() {
             </div>
 
             <form className={styles.form}>
+              <label>
+                Imię *
+                <input type="text" name="name" autoComplete="given-name" required />
+              </label>
               <div className={styles.formRow}>
                 <label>
-                  Imię *
-                  <input type="text" name="firstName" required />
+                  E-mail *
+                  <input type="email" name="email" autoComplete="email" required />
                 </label>
                 <label>
-                  Nazwisko *
-                  <input type="text" name="lastName" required />
+                  Telefon
+                  <input type="tel" name="phone" autoComplete="tel" />
                 </label>
               </div>
+              {FORM_CHOICES.map((group) => (
+                <fieldset key={group.name} className={styles.choices}>
+                  <legend>{group.legend}</legend>
+                  <div className={styles.choiceList}>
+                    {group.options.map((option) => (
+                      <label key={option} className={styles.choice}>
+                        <input type="radio" name={group.name} value={option} />
+                        <span>{option}</span>
+                      </label>
+                    ))}
+                  </div>
+                </fieldset>
+              ))}
               <label>
-                E-mail *
-                <input type="email" name="email" required />
-              </label>
-              <label>
-                Temat
-                <input type="text" name="subject" />
-              </label>
-              <label>
-                Wiadomość
-                <textarea name="message" rows={5} />
+                Coś jeszcze? (opcjonalnie)
+                <textarea name="message" rows={4} />
               </label>
               <button type="submit" className={styles.btnPrimary}>
                 Wyślij
               </button>
             </form>
+          </div>
+
+          <div id="mapa" className={`${styles.container} ${styles.map}`}>
+            <iframe
+              title="Mapa – Zdrofit Koński Jar, Warszawa Ursynów"
+              src="https://maps.google.com/maps?q=Zdrofit%20Ko%C5%84ski%20Jar%2C%20Ursyn%C3%B3w%2C%20Warszawa&z=15&output=embed"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
           </div>
         </section>
       </main>
