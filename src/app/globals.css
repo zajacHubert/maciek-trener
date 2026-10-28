@@ -9,6 +9,7 @@
   --accent: #fe6148;
   --accent-dark: #a94130;
   --accent-light: #ffcac2;
+  --error: #ff4d5e;
 
   --font-heading: var(--font-oswald), "Arial Narrow", sans-serif;
   --font-body: var(--font-open-sans), Arial, sans-serif;

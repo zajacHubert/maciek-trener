@@ -1,13 +1,16 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import ChoosePlanLink from "./ChoosePlanLink";
+import ContactForm from "./ContactForm";
 import CountUp from "./CountUp";
+import NavAutoClose from "./NavAutoClose";
 
 const NAV = [
   { href: "#start", label: "Start" },
   { href: "#o-mnie", label: "O mnie" },
   { href: "#oferta", label: "Oferta" },
   { href: "#cennik", label: "Cennik" },
-  { href: "#studio", label: "Studio" },
+  { href: "#studio", label: "Lokalizacja" },
   { href: "#kontakt", label: "Kontakt" },
 ];
 
@@ -20,55 +23,37 @@ const STATS = [
 
 const PLANS = [
   {
-    name: "Trening próbny",
-    price: "0 zł",
-    period: "pierwsze spotkanie",
-    features: ["Konsultacja i wywiad", "Analiza postawy", "Ustalenie celów"],
+    name: "Pakiet Start",
+    price: "1499 zł",
+    features: [
+      "8 treningów",
+      "Analiza mobilności i zakresu ruchu",
+      "Indywidualny plan treningowy",
+      "Wskazówki żywieniowe",
+    ],
   },
   {
-    name: "Pakiet 8 treningów",
-    price: "800 zł",
-    period: "miesięcznie",
+    name: "Pakiet Fundament",
+    price: "2699 zł",
     features: [
-      "2 treningi w tygodniu",
-      "Indywidualny plan",
-      "Kontakt z trenerem",
+      "15 treningów (2–3 razy w tygodniu)",
+      "Analiza mobilności i zakresu ruchu",
+      "Indywidualny plan treningowy + dieta",
+      "Raport postępów co 2 tygodnie",
     ],
     featured: true,
   },
   {
-    name: "Prowadzenie online",
-    price: "300 zł",
-    period: "miesięcznie",
-    features: ["Plan treningowy", "Cotygodniowe raporty", "Korekta techniki"],
+    name: "Pakiet Transformacja",
+    price: "4999 zł",
+    features: [
+      "30 treningów (3–4 razy w tygodniu)",
+      "Analiza mobilności i zakresu ruchu",
+      "Indywidualny plan treningowy + dieta",
+      "Raport postępów raz w tygodniu",
+      "Stały kontakt i wsparcie trenerskie",
+    ],
   },
-];
-
-const GOALS = [
-  "Chcę rozpocząć przygodę z siłownią",
-  "Powrót do formy po przerwie",
-  "Lepsza sylwetka",
-  "Zdrowie i sprawność na lata",
-  "Inne",
-];
-
-const FREQUENCIES = ["2 razy", "3 razy", "4 razy", "Jeszcze nie wiem"];
-
-const PACKAGES = [
-  "Pakiet Start – 1499 zł",
-  "Pakiet Fundament – 2699 zł (najczęściej wybierany)",
-  "Pakiet Transformacja – 4999 zł",
-  "Jeszcze nie wiem",
-];
-
-const FORM_CHOICES = [
-  { name: "goal", legend: "Jaki jest Twój główny cel?", options: GOALS },
-  {
-    name: "frequency",
-    legend: "Ile razy w tygodniu chcesz trenować?",
-    options: FREQUENCIES,
-  },
-  { name: "package", legend: "Czy wybrałeś już pakiet?", options: PACKAGES },
 ];
 
 export default function Home() {
@@ -100,7 +85,7 @@ export default function Home() {
             <span />
           </label>
 
-          <nav className={styles.nav}>
+          <nav id="site-nav" className={styles.nav}>
             {NAV.map((item) => (
               <a key={item.href} href={item.href}>
                 {item.label}
@@ -110,6 +95,7 @@ export default function Home() {
               Umów trening
             </a>
           </nav>
+          <NavAutoClose navId="site-nav" />
         </div>
       </header>
 
@@ -245,22 +231,24 @@ export default function Home() {
                   key={plan.name}
                   className={`${styles.plan} ${plan.featured ? styles.planFeatured : ""}`}
                 >
+                  {plan.featured && (
+                    <span className={styles.planBadge}>Najczęściej wybierany</span>
+                  )}
                   <h3>{plan.name}</h3>
                   <p className={styles.planPrice}>{plan.price}</p>
-                  <p className={styles.planPeriod}>{plan.period}</p>
                   <ul>
                     {plan.features.map((feature) => (
                       <li key={feature}>{feature}</li>
                     ))}
                   </ul>
-                  <a
-                    href="#kontakt"
+                  <ChoosePlanLink
+                    plan={plan.name}
                     className={
                       plan.featured ? styles.btnPrimary : styles.btnOutline
                     }
                   >
                     Wybieram
-                  </a>
+                  </ChoosePlanLink>
                 </div>
               ))}
             </div>
@@ -291,7 +279,8 @@ export default function Home() {
               <div>
                 <h4>Adres</h4>
                 <p>Zdrofit Koński Jar</p>
-                <p>Warszawa – Ursynów</p>
+                <p>ul. Koński Jar 6</p>
+                <p>02-785 Warszawa – Ursynów</p>
               </div>
               <div>
                 <h4>Godziny</h4>
@@ -303,8 +292,8 @@ export default function Home() {
 
           <div id="mapa" className={`${styles.container} ${styles.map}`}>
             <iframe
-              title="Mapa – Zdrofit Koński Jar, Warszawa Ursynów"
-              src="https://maps.google.com/maps?q=Zdrofit%20Ko%C5%84ski%20Jar%2C%20Ursyn%C3%B3w%2C%20Warszawa&z=15&output=embed"
+              title="Mapa – Zdrofit, ul. Koński Jar 6, Warszawa"
+              src="https://maps.google.com/maps?q=Zdrofit%2C%20Ko%C5%84ski%20Jar%206%2C%2002-785%20Warszawa&z=15&output=embed"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />
@@ -326,42 +315,7 @@ export default function Home() {
               </p>
             </div>
 
-            <form className={styles.form}>
-              <label>
-                Imię *
-                <input type="text" name="name" autoComplete="given-name" required />
-              </label>
-              <div className={styles.formRow}>
-                <label>
-                  E-mail *
-                  <input type="email" name="email" autoComplete="email" required />
-                </label>
-                <label>
-                  Telefon
-                  <input type="tel" name="phone" autoComplete="tel" />
-                </label>
-              </div>
-              {FORM_CHOICES.map((group) => (
-                <fieldset key={group.name} className={styles.choices}>
-                  <legend>{group.legend}</legend>
-                  <div className={styles.choiceList}>
-                    {group.options.map((option) => (
-                      <label key={option} className={styles.choice}>
-                        <input type="radio" name={group.name} value={option} />
-                        <span>{option}</span>
-                      </label>
-                    ))}
-                  </div>
-                </fieldset>
-              ))}
-              <label>
-                Coś jeszcze? (opcjonalnie)
-                <textarea name="message" rows={4} />
-              </label>
-              <button type="submit" className={styles.btnPrimary}>
-                Wyślij
-              </button>
-            </form>
+            <ContactForm />
           </div>
         </section>
       </main>
