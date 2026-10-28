@@ -15,9 +15,9 @@ const barlowCondensed = Barlow_Condensed({
 });
 
 export const metadata: Metadata = {
-  title: "Maciej Lubowski | Trener personalny",
+  title: "Maciej Lubowski | Trener personalny Warszawa Ursynów",
   description:
-    "Treningi personalne z Maciejem Lubowskim – dla początkujących i zaawansowanych.",
+    "Treningi personalne na Ursynowie w Warszawie z Maciejem Lubowskim – dla początkujących i zaawansowanych.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
