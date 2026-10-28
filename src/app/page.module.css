@@ -177,13 +177,37 @@
   align-items: center;
   text-align: center;
   padding: calc(var(--header-h) + 60px) 24px 0;
-  background-image:
-    linear-gradient(rgba(27, 24, 29, 0.55), rgba(27, 24, 29, 0.85)),
-    url(/photos/hero.jpg),
-    radial-gradient(ellipse at 70% 30%, #4a2a24 0%, var(--bg-3) 65%);
+  overflow: hidden;
+  /* Widoczne, dopóki film się nie załaduje (lub gdy go brak) */
+  background: radial-gradient(
+    ellipse at 70% 30%,
+    #4a2a24 0%,
+    var(--bg-3) 65%
+  );
+}
+
+.heroVideo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    rgba(27, 24, 29, 0.5),
+    rgba(27, 24, 29, 0.85)
+  );
 }
 
 .heroContent {
+  position: relative;
+  z-index: 2;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -191,8 +215,14 @@
   align-items: center;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .heroVideo {
+    display: none;
+  }
+}
+
 .heroTitle {
-  font-size: clamp(56px, 11vw, 140px);
+  font-size: clamp(44px, 8vw, 104px);
   font-weight: 700;
   letter-spacing: 0.04em;
 }
@@ -263,32 +293,45 @@
 
 /* ---------- O mnie ---------- */
 
+.aboutSection {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Zdjęcie przy prawej krawędzi, lewa strona wtapia się w tło */
+.aboutPhoto {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 60%;
+}
+
+.aboutPhoto img {
+  object-fit: cover;
+  object-position: center 20%;
+}
+
+.aboutPhoto::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(270deg, transparent 35%, var(--bg) 100%);
+}
+
 .about {
+  position: relative;
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
+  grid-template-columns: 1fr 1fr;
   gap: 80px;
   align-items: center;
 }
 
-.aboutPhoto {
-  position: relative;
-  display: flex;
-  justify-content: center;
-}
-
-.aboutPhoto::before {
-  content: "";
-  position: absolute;
-  inset: 24px -24px -24px 24px;
-  border: 2px solid var(--accent);
-}
-
-.aboutPhoto img {
-  position: relative;
-  width: 100%;
-  height: auto;
-  background: var(--bg-2);
-  padding: 32px;
+.aboutText {
+  grid-column: 1;
 }
 
 /* ---------- Osiągnięcia ---------- */
@@ -562,6 +605,16 @@
     background-attachment: scroll;
   }
 
+  .heroContent {
+    top: var(--header-h);
+  }
+
+  .heroVideo,
+  .heroOverlay {
+    top: var(--header-h);
+    height: calc(100% - var(--header-h));
+  }
+
   .burger {
     display: flex;
     flex-direction: column;
@@ -611,9 +664,25 @@
     gap: 56px;
   }
 
+  .aboutSection {
+    min-height: 0;
+    flex-direction: column;
+    padding-top: 0;
+  }
+
   .aboutPhoto {
-    max-width: 420px;
-    margin: 0 auto;
+    position: relative;
+    width: 100%;
+    height: 80vh;
+    margin-bottom: -120px;
+  }
+
+  .aboutPhoto::after {
+    background: linear-gradient(transparent 50%, var(--bg) 100%);
+  }
+
+  .aboutText {
+    grid-column: auto;
   }
 
   .statsGrid {

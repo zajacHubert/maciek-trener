@@ -1,4 +1,3 @@
-import type { CSSProperties } from "react";
 import Image from "next/image";
 import styles from "./page.module.css";
 
@@ -87,7 +86,25 @@ export default function Home() {
       </header>
 
       <main>
-        <section id="start" className={`${styles.hero} ${styles.parallax}`}>
+        <section id="start" className={styles.hero}>
+          <video
+            className={styles.heroVideo}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            aria-hidden="true"
+          >
+            <source
+              src="/videos/hero2.mp4"
+              type="video/mp4"
+              media="(max-width: 960px)"
+            />
+            <source src="/videos/hero.mp4" type="video/mp4" />
+          </video>
+          <div className={styles.heroOverlay} />
+
           <div className={styles.heroContent}>
             <h1 className={styles.heroTitle}>Maciej Lubowski</h1>
             <p className={styles.heroSubtitle}>Trener personalny</p>
@@ -127,17 +144,20 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="o-mnie" className={styles.section}>
+        <section
+          id="o-mnie"
+          className={`${styles.section} ${styles.aboutSection}`}
+        >
+          <div className={styles.aboutPhoto}>
+            <Image
+              src="/trener.jpeg"
+              alt="Maciej Lubowski"
+              fill
+              sizes="(max-width: 960px) 100vw, 60vw"
+            />
+          </div>
           <div className={`${styles.container} ${styles.about}`}>
-            <div className={styles.aboutPhoto}>
-              <Image
-                src="/logos/logo_bez_tla.png"
-                alt="Maciej Lubowski"
-                width={420}
-                height={420}
-              />
-            </div>
-            <div>
+            <div className={styles.aboutText}>
               <p className={styles.eyebrow}>O mnie</p>
               <h2 className={styles.sectionTitle}>Poznaj trenera</h2>
               <p className={styles.lead}>
