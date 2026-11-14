@@ -626,6 +626,19 @@
   align-self: flex-start;
 }
 
+.form button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 .formGroup {
   display: flex;
   flex-direction: column;
@@ -713,15 +726,66 @@
   background: var(--bg-2);
 }
 
+.formHidden {
+  display: none;
+}
+
+.formSubmit {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Podziękowanie zastępuje formularz i zajmuje tylko tyle miejsca,
+   ile potrzebuje. */
 .formSent {
-  padding: 40px;
-  border: 1px solid var(--accent);
-  border-left-width: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: formSentIn 0.4s ease-out;
+}
+
+.formSent[hidden] {
+  display: none;
+}
+
+.formSentIcon {
+  width: clamp(64px, 7vw, 84px);
+  height: clamp(64px, 7vw, 84px);
+  padding: clamp(14px, 1.6vw, 18px);
+  margin-bottom: 24px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@keyframes formSentIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .formSent {
+    animation: none;
+  }
 }
 
 .formSent h3 {
-  font-size: var(--fs-h3);
-  margin-bottom: 12px;
+  font-size: var(--fs-h2);
+  margin-bottom: 16px;
+  outline: none;
+}
+
+.formSent p:not(.eyebrow) {
+  max-width: 32ch;
+  margin-bottom: 32px;
 }
 
 .map {

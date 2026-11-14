@@ -1,8 +1,16 @@
 "use client";
 
-import { useEffect, useState, type FormEvent } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  useTransition,
+  type FormEvent,
+} from "react";
 import { CHOOSE_PLAN_EVENT } from "./ChoosePlanLink";
+import { validate, type Field, type Values } from "./contactValidation";
 import { PLANS, planOption } from "./data";
+import { sendContact } from "./sendContact";
 import styles from "./page.module.css";
 
 const SELECTS = [
@@ -29,34 +37,6 @@ const SELECTS = [
   },
 ];
 
-type Values = { name: string; email: string; phone: string };
-type Field = keyof Values | "contact";
-
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-const PHONE_RE = /^\+?[\d\s()-]+$/;
-
-function validate({ name, email, phone }: Values) {
-  const errors: Partial<Record<Field, string>> = {};
-  const digits = phone.replace(/\D/g, "");
-
-  if (!name.trim()) errors.name = "Podaj swoje imię.";
-  else if (name.trim().length < 2) errors.name = "Imię jest za krótkie.";
-
-  if (!email.trim() && !phone.trim()) {
-    errors.contact = "Podaj e-mail lub numer telefonu.";
-  }
-  if (email.trim() && !EMAIL_RE.test(email.trim())) {
-    errors.email = "Niepoprawny adres e-mail.";
-  }
-  if (
-    phone.trim() &&
-    (!PHONE_RE.test(phone.trim()) || digits.length < 9 || digits.length > 15)
-  ) {
-    errors.phone = "Niepoprawny numer telefonu.";
-  }
-  return errors;
-}
-
 export default function ContactForm() {
   const [values, setValues] = useState<Values>({
     name: "",
@@ -68,6 +48,15 @@ export default function ContactForm() {
   const [touched, setTouched] = useState<Partial<Record<Field, boolean>>>({});
   const [sent, setSent] = useState(false);
   const [plan, setPlan] = useState("");
+  const [submitError, setSubmitError] = useState("");
+  const [pending, startTransition] = useTransition();
+  const formRef = useRef<HTMLFormElement>(null);
+  const sentTitleRef = useRef<HTMLHeadingElement>(null);
+
+  // Formularz staje się nieaktywny, więc przenosimy fokus na podziękowanie.
+  useEffect(() => {
+    if (sent) sentTitleRef.current?.focus();
+  }, [sent]);
 
   // Kliknięcie „Wybieram” w cenniku ustawia pakiet w selekcie.
   useEffect(() => {
@@ -98,101 +87,154 @@ export default function ContactForm() {
       first?.focus();
       return;
     }
-    // TODO: podpiąć wysyłkę (np. Formspree / endpoint z mailem).
-    setSent(true);
+    const formData = new FormData(e.currentTarget);
+    setSubmitError("");
+    startTransition(async () => {
+      // Wyjątek (np. brak internetu) traktujemy jak zwykły błąd wysyłki.
+      const result = await sendContact(formData).catch(() => null);
+      if (result?.ok) setSent(true);
+      else
+        setSubmitError(
+          result?.error ??
+            "Nie udało się wysłać wiadomości. Sprawdź połączenie i spróbuj ponownie.",
+        );
+    });
   };
 
-  if (sent) {
-    return (
-      <div className={styles.formSent} role="status">
-        <h3>Dziękuję za wiadomość!</h3>
-        <p>Odezwę się najszybciej, jak to możliwe.</p>
-      </div>
-    );
-  }
+  const resetForm = () => {
+    formRef.current?.reset();
+    setValues({ name: "", email: "", phone: "" });
+    setTouched({});
+    setPlan("");
+    setSent(false);
+  };
 
   const contactError = show("contact");
 
+  // Po wysłaniu formularz jest ukrywany (nie odmontowywany), żeby
+  // „Wyślij kolejną wiadomość” mogło go po prostu wyczyścić i pokazać.
   return (
-    <form className={styles.form} onSubmit={handleSubmit} noValidate>
-      <TextField
-        label="Imię *"
-        name="name"
-        autoComplete="given-name"
-        value={values.name}
-        error={show("name")}
-        onChange={update("name")}
-        onBlur={() => touch("name")}
-      />
-
-      <div className={styles.formGroup}>
-        <div className={styles.formRow}>
-          <TextField
-            label="E-mail"
-            name="email"
-            type="email"
-            autoComplete="email"
-            value={values.email}
-            error={show("email")}
-            invalid={!!contactError}
-            describedBy={contactError ? "contact-error" : undefined}
-            onChange={update("email")}
-            onBlur={() => touch("email")}
-          />
-          <TextField
-            label="Telefon"
-            name="phone"
-            type="tel"
-            autoComplete="tel"
-            value={values.phone}
-            error={show("phone")}
-            invalid={!!contactError}
-            describedBy={contactError ? "contact-error" : undefined}
-            onChange={update("phone")}
-            onBlur={() => touch("phone", "contact")}
-          />
-        </div>
-        <p
-          id="contact-error"
-          className={contactError ? styles.fieldError : styles.fieldHint}
-          aria-live="polite"
+    <div>
+      <div className={styles.formSent} role="status" hidden={!sent}>
+        <svg
+          className={styles.formSentIcon}
+          viewBox="0 0 24 24"
+          aria-hidden="true"
         >
-          {contactError ?? "* Podaj co najmniej jedną formę kontaktu."}
+          <path d="M5 12.5l4.5 4.5L19 7.5" />
+        </svg>
+        <p className={styles.eyebrow}>Wiadomość wysłana</p>
+        <h3 ref={sentTitleRef} tabIndex={-1}>
+          Dziękuję za kontakt!
+        </h3>
+        <p>
+          Odezwę się najszybciej, jak to możliwe – zwykle w ciągu 24 godzin.
         </p>
+        <button type="button" className={styles.btnOutline} onClick={resetForm}>
+          Wyślij kolejną wiadomość
+        </button>
       </div>
+      <form
+        ref={formRef}
+        className={cx(styles.form, sent && styles.formHidden)}
+        onSubmit={handleSubmit}
+        noValidate
+        inert={sent}
+        aria-busy={pending}
+      >
+        <TextField
+          label="Imię *"
+          name="name"
+          autoComplete="given-name"
+          value={values.name}
+          error={show("name")}
+          onChange={update("name")}
+          onBlur={() => touch("name")}
+        />
 
-      {SELECTS.map((select) => (
-        <label key={select.name}>
-          {select.label}
-          <span className={styles.selectWrap}>
-            <select
-              name={select.name}
-              {...(select.name === "package"
-                ? { value: plan, onChange: (e) => setPlan(e.target.value) }
-                : { defaultValue: "" })}
-            >
-              <option value="">Wybierz…</option>
-              {select.options.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-          </span>
+        <div className={styles.formGroup}>
+          <div className={styles.formRow}>
+            <TextField
+              label="E-mail"
+              name="email"
+              type="email"
+              autoComplete="email"
+              value={values.email}
+              error={show("email")}
+              invalid={!!contactError}
+              describedBy={contactError ? "contact-error" : undefined}
+              onChange={update("email")}
+              onBlur={() => touch("email")}
+            />
+            <TextField
+              label="Telefon"
+              name="phone"
+              type="tel"
+              autoComplete="tel"
+              value={values.phone}
+              error={show("phone")}
+              invalid={!!contactError}
+              describedBy={contactError ? "contact-error" : undefined}
+              onChange={update("phone")}
+              onBlur={() => touch("phone", "contact")}
+            />
+          </div>
+          <p
+            id="contact-error"
+            className={contactError ? styles.fieldError : styles.fieldHint}
+            aria-live="polite"
+          >
+            {contactError ?? "* Podaj co najmniej jedną formę kontaktu."}
+          </p>
+        </div>
+
+        {SELECTS.map((select) => (
+          <label key={select.name}>
+            {select.label}
+            <span className={styles.selectWrap}>
+              <select
+                name={select.name}
+                {...(select.name === "package"
+                  ? { value: plan, onChange: (e) => setPlan(e.target.value) }
+                  : { defaultValue: "" })}
+              >
+                <option value="">Wybierz…</option>
+                {select.options.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+            </span>
+          </label>
+        ))}
+
+        <label>
+          Coś jeszcze? (opcjonalnie)
+          <textarea name="message" rows={4} />
         </label>
-      ))}
 
-      <label>
-        Coś jeszcze? (opcjonalnie)
-        <textarea name="message" rows={4} />
-      </label>
+        {/* Pułapka na boty – niewidoczna dla ludzi */}
+        <div className={styles.honeypot} aria-hidden="true">
+          <input type="text" name="website" tabIndex={-1} autoComplete="off" />
+        </div>
 
-      <button type="submit" className={styles.btnPrimary}>
-        Wyślij
-      </button>
-    </form>
+        <div className={styles.formSubmit}>
+          <button type="submit" className={styles.btnPrimary} disabled={pending}>
+            {pending ? "Wysyłanie…" : "Wyślij"}
+          </button>
+          {/* Miejsce na błąd wysyłki jest zarezerwowane, żeby nic nie skakało */}
+          <p className={styles.fieldError} aria-live="assertive">
+            {submitError}
+          </p>
+        </div>
+      </form>
+    </div>
   );
 }
+
+const cx = (...classes: (string | false)[]) =>
+  classes.filter(Boolean).join(" ");
 
 function TextField({
   label,
