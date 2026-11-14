@@ -440,6 +440,7 @@
   display: flex;
   height: clamp(480px, 56vw, 640px);
   list-style: none;
+  container-type: inline-size;
 }
 
 .transformation {
@@ -485,6 +486,21 @@
 .transformationAfter {
   right: 0;
   width: 100%;
+}
+
+/* Zdjęcie ma stałą szerokość – połowę rozwiniętego paska (albo cały pasek
+   w spoczynku, jeśli jest szerszy). Animacja zmienia tylko widoczny
+   wycinek, więc zdjęcie nie powiększa się chwilowo w trakcie rozwijania. */
+.transformationPhoto {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: max(
+    100cqw / var(--count),
+    100cqw * 3.5 / (var(--count) + 2.5) / 2
+  );
+  transform: translateX(-50%);
 }
 
 .transformation img {
@@ -621,6 +637,12 @@
   .transformationsList {
     --t: 0s;
   }
+
+  /* Na telefonie zostaje tylko przygaszenie, bez ruchu */
+  .transformation,
+  .transformationInfo > * {
+    transform: none !important;
+  }
 }
 
 /* Telefon i tablet: slider przewijany palcem */
@@ -645,6 +667,39 @@
     flex: 0 0 min(85%, 440px);
     scroll-snap-align: start;
     cursor: auto;
+    /* Sąsiednie slajdy są lekko mniejsze i przygaszone */
+    opacity: 0.4;
+    transform: scale(0.94);
+    transition:
+      opacity 0.5s ease,
+      transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .slideCurrent {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Opis aktualnego slajdu wjeżdża delikatnie od dołu */
+  .transformationInfo > * {
+    opacity: 0;
+    transform: translateY(10px);
+    transition:
+      opacity 0.4s ease,
+      transform 0.4s ease;
+  }
+
+  .slideCurrent .transformationInfo > * {
+    opacity: 1;
+    transform: none;
+  }
+
+  .slideCurrent .transformationInfo > :nth-child(2) {
+    transition-delay: 0.08s;
+  }
+
+  .slideCurrent .transformationInfo > :nth-child(3) {
+    transition-delay: 0.16s;
   }
 
   .transformation + .transformation {
@@ -659,6 +714,12 @@
   .transformationBefore,
   .transformationAfter {
     width: 50%;
+  }
+
+  .transformationPhoto {
+    left: 0;
+    width: 100%;
+    transform: none;
   }
 
   .transformation img {
@@ -839,9 +900,11 @@
 
 .studio {
   --section-pad: clamp(80px, 11vw, 140px);
+  /* Jaśniejsza niż ciemna sekcja „Gotowy na zmianę?” powyżej – tła sekcji
+     przeplatają się: ciemniejsze i jaśniejsze */
   background-image:
-    linear-gradient(90deg, rgba(27, 24, 29, 0.95) 30%, rgba(27, 24, 29, 0.6)),
-    linear-gradient(135deg, #3a2420, var(--bg-3));
+    linear-gradient(90deg, rgba(47, 43, 50, 0.96) 30%, rgba(47, 43, 50, 0.7)),
+    linear-gradient(135deg, #4a2e28, var(--bg-2));
 }
 
 .studioInner {
@@ -1157,14 +1220,20 @@
     background-attachment: scroll;
   }
 
+  /* Film zaczyna się w połowie wysokości paska menu – górna połowa
+     filmu chowa się pod półprzezroczystym paskiem */
+  .hero {
+    --hero-offset: calc(var(--header-h) / 2);
+  }
+
   .heroContent {
-    top: var(--header-h);
+    top: var(--hero-offset);
   }
 
   .heroVideo,
   .heroOverlay {
-    top: var(--header-h);
-    height: calc(100% - var(--header-h));
+    top: var(--hero-offset);
+    height: calc(100% - var(--hero-offset));
   }
 
   .burger {

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useRef, useState, type CSSProperties } from "react";
 import type { Transformation } from "./data";
 import styles from "./page.module.css";
 
@@ -43,6 +43,7 @@ export default function Transformations({
       <ul
         ref={listRef}
         className={styles.transformationsList}
+        style={{ "--count": items.length } as CSSProperties}
         onMouseLeave={() => setActive(null)}
         onScroll={onScroll}
       >
@@ -55,6 +56,7 @@ export default function Transformations({
               className={cx(
                 styles.transformation,
                 active === i && styles.transformationActive,
+                slide === i && styles.slideCurrent,
               )}
               tabIndex={0}
               onMouseEnter={() => setActive(i)}
@@ -63,22 +65,26 @@ export default function Transformations({
             >
               <div className={styles.transformationMedia}>
                 <div className={styles.transformationBefore}>
-                  <Image
-                    src={item.before.src}
-                    alt={`${item.name} przed współpracą`}
-                    fill
-                    sizes="(max-width: 960px) 45vw, 340px"
-                    style={{ objectPosition: item.before.position }}
-                  />
+                  <span className={styles.transformationPhoto}>
+                    <Image
+                      src={item.before.src}
+                      alt={`${item.name} przed współpracą`}
+                      fill
+                      sizes="(max-width: 960px) 45vw, 340px"
+                      style={{ objectPosition: item.before.position }}
+                    />
+                  </span>
                 </div>
                 <div className={styles.transformationAfter}>
-                  <Image
-                    src={item.after.src}
-                    alt={`${item.name} po ${item.duration} współpracy`}
-                    fill
-                    sizes="(max-width: 960px) 45vw, 340px"
-                    style={{ objectPosition: item.after.position }}
-                  />
+                  <span className={styles.transformationPhoto}>
+                    <Image
+                      src={item.after.src}
+                      alt={`${item.name} po ${item.duration} współpracy`}
+                      fill
+                      sizes="(max-width: 960px) 45vw, 340px"
+                      style={{ objectPosition: item.after.position }}
+                    />
+                  </span>
                 </div>
               </div>
 
