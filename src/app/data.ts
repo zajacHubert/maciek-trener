@@ -125,8 +125,16 @@ export const TRANSFORMATIONS: Transformation[] = [
     before: { src: `${PHOTOS}/piotr-m-przed.jpg`, position: "50% 25%" },
     after: { src: `${PHOTOS}/piotr-m-po.jpg`, position: "50% 25%" },
   },
-  // Tomasz – zdjęcia są gotowe (tomasz-przed.jpg, tomasz-po.jpg),
-  // brakuje opisu: wieku, okresu współpracy i wagi.
+  {
+    name: "Tomasz",
+    age: "42 lata",
+    duration: "18 miesięcy",
+    weight: [92, 83],
+    description:
+      "Rekompozycja sylwetki zakończona redukcją, czego efektem była forma „na lato”.",
+    before: { src: `${PHOTOS}/tomasz-przed.jpg`, position: "50% 20%" },
+    after: { src: `${PHOTOS}/tomasz-po.jpg`, position: "50% 20%" },
+  },
 ];
 
 /** Rok urodzenia trenera – z niego liczony jest wiek w sekcji „O mnie”. */
