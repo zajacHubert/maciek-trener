@@ -11,8 +11,10 @@ import {
   NAV,
   PLANS,
   STATS,
+  TRANSFORMATIONS,
   planOption,
 } from "./data";
+import Transformations from "./Transformations";
 import { CurrentYear, TrainerAge } from "./CurrentYear";
 
 const MAP_URL = `https://maps.google.com/maps?q=${encodeURIComponent(
@@ -182,6 +184,17 @@ export default function Home() {
               podczas procesu budowania sylwetki, poprawy zdrowia i jakości
               życia.
             </p>
+          </div>
+        </section>
+
+        <section
+          id="przemiany"
+          className={cx(styles.section, styles.transformationsSection)}
+        >
+          <div className={styles.container}>
+            <p className={styles.eyebrow}>Efekty współpracy</p>
+            <h2 className={styles.sectionTitle}>Przemiany podopiecznych</h2>
+            <Transformations items={TRANSFORMATIONS} />
           </div>
         </section>
 
