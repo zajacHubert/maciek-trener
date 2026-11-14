@@ -141,8 +141,8 @@ export const TRANSFORMATIONS: Transformation[] = [
 export const BIRTH_YEAR = 1988;
 
 export const CONTACT = {
-  email: "kontakt@example.com",
-  phone: "+48 123 456 789",
+  email: "macieklubo23@poczta.onet.pl",
+  phone: "+48 793 175 700",
 };
 
 export const ADDRESS = {
