@@ -722,10 +722,10 @@
     transform: none;
   }
 
-  .transformation img {
+  /* Bieżący slajd w kolorze, pozostałe czarno-białe */
+  .slideCurrent img {
     filter: none;
   }
-
 
   .section .transformationName {
     display: none;
