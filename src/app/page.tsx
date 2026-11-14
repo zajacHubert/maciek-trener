@@ -29,7 +29,7 @@ export default function Home() {
         <div className={styles.headerInner}>
           <a href="#start" className={styles.brand}>
             <Image
-              src="/logos/logo_z_kolem.png"
+              src="/images/logo-maciej-lubowski.png"
               alt="Maciej Lubowski – logo"
               width={56}
               height={56}
@@ -77,11 +77,11 @@ export default function Home() {
             aria-hidden="true"
           >
             <source
-              src="/videos/hero2.mp4"
+              src="/videos/hero-mobile.mp4"
               type="video/mp4"
               media="(max-width: 960px)"
             />
-            <source src="/videos/hero.mp4" type="video/mp4" />
+            <source src="/videos/hero-desktop.mp4" type="video/mp4" />
           </video>
           <div className={styles.heroOverlay} />
 
@@ -135,7 +135,7 @@ export default function Home() {
         <section id="o-mnie" className={cx(styles.section, styles.aboutSection)}>
           <div className={styles.aboutPhoto}>
             <Image
-              src="/trener.jpeg"
+              src="/images/trener-na-silowni.jpeg"
               alt="Maciej Lubowski"
               fill
               sizes="(max-width: 960px) 100vw, 60vw"
