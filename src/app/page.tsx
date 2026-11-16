@@ -3,6 +3,7 @@ import styles from "./page.module.css";
 import ChoosePlanLink from "./ChoosePlanLink";
 import ContactForm from "./ContactForm";
 import CountUp from "./CountUp";
+import HeroVideo from "./HeroVideo";
 import NavAutoClose from "./NavAutoClose";
 import {
   ADDRESS,
@@ -90,22 +91,22 @@ export default function Home() {
 
       <main>
         <section id="start" className={styles.hero}>
-          <video
-            className={styles.heroVideo}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            aria-hidden="true"
-          >
+          {/* Pierwsza klatka filmu – lekki obrazek widoczny od razu, zanim
+              film się załaduje (osobny kadr na telefon i komputer) */}
+          <picture>
             <source
-              src="/videos/hero-mobile.mp4"
-              type="video/mp4"
+              srcSet="/videos/hero-mobile-poster.webp"
               media="(max-width: 960px)"
             />
-            <source src="/videos/hero-desktop.mp4" type="video/mp4" />
-          </video>
+            <img
+              src="/videos/hero-desktop-poster.webp"
+              alt=""
+              className={styles.heroPoster}
+              fetchPriority="high"
+              decoding="async"
+            />
+          </picture>
+          <HeroVideo className={styles.heroVideo} />
           <div className={styles.heroOverlay} />
 
           <div className={styles.heroContent}>
@@ -234,7 +235,7 @@ export default function Home() {
                   <span className={styles.stepNumber} aria-hidden="true">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <h4>{step.title}</h4>
+                  <h3>{step.title}</h3>
                   {step.note && <p className={styles.stepNote}>{step.note}</p>}
                   <p>{step.text}</p>
                 </li>

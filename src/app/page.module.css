@@ -228,7 +228,20 @@
   );
 }
 
+/* Komputer: film pojawia się płynnie nad pierwszą klatką, gdy ruszy
+   (HeroVideo). Telefon: film widoczny od razu z klatką jako poster. */
 .heroVideo {
+  transition: opacity 0.6s ease;
+}
+
+@media (min-width: 961px) {
+  .heroVideo:not([data-playing]) {
+    opacity: 0;
+  }
+}
+
+.heroVideo,
+.heroPoster {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -1025,23 +1038,36 @@
 
   .sliderDots {
     display: flex;
-    gap: 10px;
   }
 
+  /* Przycisk ma 26×26 px (wygodny cel dla palca), a widać tylko kropkę */
   .sliderDots button {
-    width: 8px;
-    height: 8px;
+    display: grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
     padding: 0;
     border: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .sliderDots button::before {
+    content: "";
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     background: var(--line);
-    cursor: pointer;
     transition:
       background-color 0.2s,
       width 0.2s;
   }
 
   .sliderDots button[aria-current="true"] {
+    width: 34px;
+  }
+
+  .sliderDots button[aria-current="true"]::before {
     width: 24px;
     border-radius: 4px;
     background: var(--accent);
@@ -1178,7 +1204,7 @@
 .stepsSection {
   background-image:
     linear-gradient(rgba(27, 24, 29, 0.78), rgba(27, 24, 29, 0.78)),
-    url("/images/hantle.jpg");
+    url("/images/hantle.webp");
   background-position: center 65%;
 }
 
@@ -1197,9 +1223,10 @@
 .step {
   padding: 28px 24px 32px;
   border-top: 2px solid var(--accent);
-  /* Lekko przezroczyste – spod kart prześwituje zdjęcie z tła */
-  background: rgba(47, 43, 50, 0.82);
-  backdrop-filter: blur(4px);
+  /* Półprzezroczyste – spod kart wyraźnie prześwituje zdjęcie z tła,
+     a lekkie rozmycie pod spodem trzyma czytelność tekstu */
+  background: rgba(47, 43, 50, 0.6);
+  backdrop-filter: blur(3px);
 }
 
 .stepNumber {
@@ -1212,7 +1239,7 @@
   margin-bottom: 16px;
 }
 
-.step h4 {
+.step h3 {
   font-size: var(--fs-h3);
   margin-bottom: 12px;
 }
@@ -1349,7 +1376,8 @@
   font-size: var(--fs-ui);
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--muted);
+  /* Białe etykiety – dobrze widoczne na zdjęciu w tle sekcji */
+  color: var(--text);
 }
 
 .form input,
@@ -1362,14 +1390,14 @@
   color: var(--text);
   background: transparent;
   border: none;
-  border-bottom: 1px solid var(--muted);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.7);
   padding: 10px 0;
   resize: vertical;
   transition: border-color 0.2s;
 }
 
 .form textarea::placeholder {
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.7);
   line-height: 1.5;
 }
 
@@ -1419,7 +1447,7 @@
 
 .section .fieldHint {
   font-size: var(--fs-small);
-  color: var(--muted);
+  color: rgba(255, 255, 255, 0.85);
 }
 
 /* Linia pod polem: biała przy pisaniu, czerwona przy błędzie.
@@ -1458,7 +1486,7 @@
   color: var(--text);
   background: transparent;
   border: none;
-  border-bottom: 1px solid var(--muted);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.7);
   border-radius: 0;
   padding: 10px 28px 10px 0;
   cursor: pointer;
@@ -1476,7 +1504,7 @@
 }
 
 .form select:has(option[value=""]:checked) {
-  color: var(--muted);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .form select option {
@@ -1601,6 +1629,7 @@
   }
 
   .heroVideo,
+  .heroPoster,
   .heroOverlay {
     top: var(--hero-offset);
     height: calc(100% - var(--hero-offset));
@@ -1775,7 +1804,8 @@
   }
 
   /* Film podsunięty wyżej – głowa trenera bliżej paska nawigacji */
-  .heroVideo {
+  .heroVideo,
+  .heroPoster {
     top: calc(var(--hero-offset) - 7svh);
     height: calc(100% - var(--hero-offset) + 7svh);
   }
