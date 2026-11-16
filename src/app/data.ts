@@ -153,13 +153,13 @@ const PHOTOS = "/images/przemiany";
 export const TRANSFORMATIONS: Transformation[] = [
   {
     name: "Piotr",
-    age: "42 lata",
-    duration: "16 miesięcy",
-    weight: [125, 89],
+    age: "44 lata",
+    duration: "6 lat",
+    weight: [82, 103],
     description:
-      "Bardzo długi okres redukcji, nastawiony na rekompozycję sylwetki, czyli spalenie tkanki tłuszczowej i budowanie masy mięśniowej.",
-    before: { src: `${PHOTOS}/piotr-przed.jpg`, position: "45% 50%" },
-    after: { src: `${PHOTOS}/piotr-po.jpg`, position: "50% 25%" },
+      "Długoletnia współpraca trwająca do dziś. Nastawienie na sukcesywne budowanie i poprawianie sylwetki, przeplatane okresami masy i redukcji.",
+    before: { src: `${PHOTOS}/piotr-m-przed.jpg`, position: "50% 25%" },
+    after: { src: `${PHOTOS}/piotr-m-po.jpg`, position: "50% 25%" },
   },
   {
     name: "Ania",
@@ -182,13 +182,13 @@ export const TRANSFORMATIONS: Transformation[] = [
   },
   {
     name: "Piotr",
-    age: "44 lata",
-    duration: "6 lat",
-    weight: [82, 103],
+    age: "42 lata",
+    duration: "16 miesięcy",
+    weight: [125, 89],
     description:
-      "Długoletnia współpraca trwająca do dziś. Nastawienie na sukcesywne budowanie i poprawianie sylwetki, przeplatane okresami masy i redukcji.",
-    before: { src: `${PHOTOS}/piotr-m-przed.jpg`, position: "50% 25%" },
-    after: { src: `${PHOTOS}/piotr-m-po.jpg`, position: "50% 25%" },
+      "Bardzo długi okres redukcji, nastawiony na rekompozycję sylwetki, czyli spalenie tkanki tłuszczowej i budowanie masy mięśniowej.",
+    before: { src: `${PHOTOS}/piotr-przed.jpg`, position: "45% 50%" },
+    after: { src: `${PHOTOS}/piotr-po.jpg`, position: "50% 25%" },
   },
   {
     name: "Tomasz",

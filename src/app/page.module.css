@@ -475,19 +475,14 @@
   text-transform: uppercase;
 }
 
-/* ---------- CTA ---------- */
+/* ---------- CTA „Gotowy na zmianę?” ----------
+   Na komputerze dokładnie jak „Poznaj trenera” (klasy aboutSection,
+   aboutPhoto, about, aboutText): tekst z lewej, zdjęcie z prawej wygaszane
+   w fakturę betonu. Różnice tylko na telefonie – patrz media query. */
 
-.cta {
-  position: relative;
-  overflow: hidden;
-  /* Cała sekcja mieści się na ekranie pod paskiem menu */
-  min-height: calc(100vh - var(--header-h));
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
-  padding: clamp(88px, 13vw, 160px) 24px clamp(56px, 9vh, 96px);
-  text-align: center;
+.ctaPhoto img {
+  /* Kadr od czapki – dłoń z gestem w widocznej części */
+  object-position: center 18%;
 }
 
 /* ---------- Tło ze zdjęciem i odbiciami (komponent MirrorPhotoBg) ----------
@@ -506,19 +501,6 @@
   z-index: 0;
   container-type: size;
   --w: calc(100cqh * var(--aspect, 0.73));
-}
-
-/* „Gotowy na zmianę?”: ramka szersza niż zdjęcie (0,73 zamiast 0,56) –
-   ucina tylko pusty sufit nad czapką i podłogę pod butami (czapka i buty
-   mieszczą się z niewielkim zapasem); przyciemnienie od dołu pod napis */
-.ctaMirror {
-  --aspect: 0.73;
-  --pos-y: 32%;
-  --extra: linear-gradient(
-    transparent 50%,
-    rgba(27, 24, 29, 0.25) 70%,
-    rgba(27, 24, 29, 0.7)
-  );
 }
 
 /* Kontakt: zdjęcie mocno przyciemnione, żeby formularz był czytelny */
@@ -666,24 +648,15 @@
   z-index: 1;
 }
 
-.ctaTitle,
-.cta .btnPrimary {
-  position: relative;
-  z-index: 1;
-}
-
 .ctaTitle {
+  font-size: var(--fs-h2);
+  font-weight: 500;
+  margin-bottom: 40px;
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
 }
 
 .ctaTitle span {
   display: block;
-}
-
-.ctaTitle {
-  font-size: var(--fs-h2);
-  font-weight: 500;
-  margin-bottom: 40px;
 }
 
 /* ---------- Cennik ---------- */
@@ -1723,6 +1696,39 @@
     grid-column: auto;
   }
 
+  /* „Gotowy na zmianę?” na telefonie i tablecie: zdjęcie na całe tło,
+     tekst nałożony na nie u dołu, na przyciemnieniu */
+  .ctaSection {
+    min-height: calc(100svh - var(--header-h));
+    justify-content: flex-end;
+    padding-bottom: clamp(48px, 8svh, 80px);
+  }
+
+  .ctaPhoto {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .ctaPhoto::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      transparent 40%,
+      rgba(27, 24, 29, 0.35) 62%,
+      rgba(27, 24, 29, 0.85)
+    );
+  }
+
+  .ctaText {
+    text-align: center;
+  }
+
   .statsGrid {
     grid-template-columns: 1fr 1fr;
     gap: 48px 24px;
@@ -1794,6 +1800,12 @@
   .mirrorPhoto {
     -webkit-mask-image: none;
     mask-image: none;
+  }
+
+  /* Kontakt na telefonie: sekcja jest bardzo wysoka (dane + formularz),
+     więc ramka w proporcjach zdjęcia – mniejsze powiększenie, ostrzej */
+  .contactMirror {
+    --aspect: 0.564;
   }
 
   /* Na telefonie przyciski są pod sobą, więc treść jest wysoka – treść

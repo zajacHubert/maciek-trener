@@ -10,7 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
       images: [
         `${SITE.url}/images/trener-na-silowni.jpeg`,
-        `${SITE.url}/images/trener-na-lawce.jpg`,
+        `${SITE.url}/images/trener-pozdrawia.jpg`,
       ],
     },
   ];

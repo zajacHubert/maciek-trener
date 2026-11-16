@@ -305,18 +305,35 @@ export default function Home() {
           </div>
         </section>
 
-        <section className={cx(styles.cta, styles.concrete)}>
-          <MirrorPhotoBg
-            src="/images/trener-na-lawce.jpg"
-            className={styles.ctaMirror}
-          />
-          <h2 className={styles.ctaTitle}>
-            <span>Gotowy na zmianę?</span>
-            <span>Poprowadzę Cię krok po kroku</span>
-          </h2>
-          <a href="#kontakt" className={styles.btnPrimary}>
-            Zarezerwuj trening
-          </a>
+        {/* Ten sam układ co „Poznaj trenera”: na komputerze tekst z lewej,
+            zdjęcie z prawej wygaszane w tło; na telefonie tekst na zdjęciu */}
+        <section
+          className={cx(
+            styles.section,
+            styles.aboutSection,
+            styles.ctaSection,
+            styles.concrete,
+          )}
+        >
+          <div className={cx(styles.aboutPhoto, styles.ctaPhoto)}>
+            <Image
+              src="/images/trener-pozdrawia.jpg"
+              alt="Maciej Lubowski – trener personalny, Warszawa Ursynów"
+              fill
+              sizes="(max-width: 960px) 100vw, 60vw"
+            />
+          </div>
+          <div className={cx(styles.container, styles.about)}>
+            <div className={cx(styles.aboutText, styles.ctaText)}>
+              <h2 className={styles.ctaTitle}>
+                <span>Gotowy na zmianę?</span>
+                <span>Poprowadzę Cię krok po kroku</span>
+              </h2>
+              <a href="#kontakt" className={styles.btnPrimary}>
+                Zarezerwuj trening
+              </a>
+            </div>
+          </div>
         </section>
 
         <section id="studio" className={cx(styles.studio, styles.parallax)}>
@@ -378,7 +395,7 @@ export default function Home() {
           className={cx(styles.section, styles.contactSection, styles.concrete)}
         >
           <MirrorPhotoBg
-            src="/images/trener-przy-hantlach.jpg"
+            src="/images/trener-hantle-lustro.jpg"
             className={styles.contactMirror}
           />
           <div className={cx(styles.container, styles.contact)}>
@@ -470,7 +487,7 @@ function PhoneIcon() {
    pobierany raz) w środku i w odbiciach. */
 function MirrorPhotoBg({ src, className }: { src: string; className?: string }) {
   const photo = (
-    <Image src={src} alt="" fill sizes="(max-width: 960px) 100vw, 40vw" />
+    <Image src={src} alt="" fill sizes="(max-width: 960px) 200vw, 60vw" />
   );
   return (
     <div className={cx(styles.mirrorBg, className)} aria-hidden="true">

@@ -58,7 +58,7 @@ const data = {
       url: `${SITE.url}/`,
       image: [
         `${SITE.url}/images/trener-na-silowni.jpeg`,
-        `${SITE.url}/images/trener-na-lawce.jpg`,
+        `${SITE.url}/images/trener-pozdrawia.jpg`,
       ],
       logo: `${SITE.url}/images/logo-maciej-lubowski.png`,
       telephone: CONTACT.phone,
