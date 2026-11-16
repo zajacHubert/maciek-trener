@@ -486,8 +486,8 @@
    w fakturę betonu. Różnice tylko na telefonie – patrz media query. */
 
 .ctaPhoto img {
-  /* Kadr od czapki – dłoń z gestem w widocznej części */
-  object-position: center 18%;
+  /* Głowa tuż pod górną krawędzią – widać więcej sylwetki */
+  object-position: center 29%;
 }
 
 /* ---------- Tło ze zdjęciem i odbiciami (komponent MirrorPhotoBg) ----------
@@ -1713,7 +1713,8 @@
   .ctaSection {
     min-height: calc(100svh - var(--header-h));
     justify-content: flex-end;
-    padding-bottom: clamp(48px, 8svh, 80px);
+    /* Napis z przyciskiem podniesione nieco wyżej nad dolną krawędź */
+    padding-bottom: calc(clamp(48px, 8svh, 80px) + 20px);
   }
 
   .ctaPhoto {

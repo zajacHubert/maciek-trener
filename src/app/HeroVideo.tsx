@@ -8,12 +8,12 @@ const MOBILE = "(max-width: 960px)";
 // i który umie odtworzyć (type): AV1 (Chrome, Firefox, Android),
 // HEVC (Safari, iPhone), a na końcu H.264 – działa wszędzie.
 const SOURCES = [
-  { name: "hero-mobile-av1", codec: "av01.0.08M.08", media: MOBILE },
-  { name: "hero-mobile-hevc", codec: "hvc1.1.6.L120.90", media: MOBILE },
-  { name: "hero-mobile", media: MOBILE },
-  { name: "hero-desktop-av1", codec: "av01.0.08M.08" },
-  { name: "hero-desktop-hevc", codec: "hvc1.1.6.L120.90" },
-  { name: "hero-desktop" },
+  { name: "hero2-mobile-av1", codec: "av01.0.08M.08", media: MOBILE },
+  { name: "hero2-mobile-hevc", codec: "hvc1.1.6.L120.90", media: MOBILE },
+  { name: "hero2-mobile", media: MOBILE },
+  { name: "hero2-desktop-av1", codec: "av01.0.08M.08" },
+  { name: "hero2-desktop-hevc", codec: "hvc1.1.6.L120.90" },
+  { name: "hero2-desktop" },
 ] as const satisfies readonly { name: string; codec?: string; media?: string }[];
 
 type NetworkInfo = { saveData?: boolean; effectiveType?: string };
@@ -69,7 +69,7 @@ export default function HeroVideo({ className }: { className: string }) {
       ref={ref}
       className={className}
       data-playing={playing || undefined}
-      poster="/videos/hero-mobile-poster.webp"
+      poster="/videos/hero2-mobile-poster.webp"
       onPlaying={() => setPlaying(true)}
       muted
       loop

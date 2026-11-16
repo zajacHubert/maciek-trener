@@ -103,11 +103,11 @@ export default function Home() {
               film się załaduje (osobny kadr na telefon i komputer) */}
           <picture>
             <source
-              srcSet="/videos/hero-mobile-poster.webp"
+              srcSet="/videos/hero2-mobile-poster.webp"
               media="(max-width: 960px)"
             />
             <img
-              src="/videos/hero-desktop-poster.webp"
+              src="/videos/hero2-desktop-poster.webp"
               alt=""
               className={styles.heroPoster}
               fetchPriority="high"
