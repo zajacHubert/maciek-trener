@@ -85,7 +85,7 @@ export const PLANS: Plan[] = [
   },
   {
     name: "Pakiet Transformacja",
-    price: "4599 zł",
+    price: "4699 zł",
     features: [
       "30 treningów (3–4 razy w tygodniu)",
       "Analiza mobilności i zakresu ruchu",
