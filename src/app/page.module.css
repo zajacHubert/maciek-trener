@@ -495,10 +495,20 @@
 @media (min-width: 961px) {
   .ctaPhoto {
     width: 40%;
+    /* Krótsze wygaszanie niż w „Poznaj trenera” – sylwetka zostaje ostra,
+       w tło przechodzi tylko lewy brzeg zdjęcia */
+    --fade: linear-gradient(
+      270deg,
+      #000 55%,
+      rgba(0, 0, 0, 0.75) 72%,
+      rgba(0, 0, 0, 0.35) 87%,
+      transparent 100%
+    );
   }
 
   .ctaPhoto img {
-    object-position: center 8%;
+    /* Głowa blisko górnej krawędzi */
+    object-position: center 30%;
   }
 }
 
