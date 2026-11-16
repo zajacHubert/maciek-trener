@@ -96,6 +96,20 @@ export const PLANS: Plan[] = [
   },
 ];
 
+/** Współpraca online – osobna karta pod pakietami (bez treningów na siłowni). */
+export const ONLINE_PLAN: Plan & { description: string } = {
+  name: "Współpraca Online (3 miesiące)",
+  price: "999 zł",
+  description:
+    "Dla osób, które potrzebują prowadzenia i planu, ale trenują samodzielnie.",
+  features: [
+    "3 miesiące pełnej opieki trenerskiej",
+    "Indywidualny plan treningowy + dieta",
+    "Raport postępów i analiza wyników raz w tygodniu",
+    "Konsultacja video raz w tygodniu",
+  ],
+};
+
 /** Pojedynczy trening – pokazywany pod pakietami jako skromniejsza opcja. */
 export const SINGLE_SESSION: Plan = {
   name: "Trening personalny (1h)",

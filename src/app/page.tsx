@@ -14,6 +14,7 @@ import {
   PHONE_URL,
   WHATSAPP_URL,
   NAV,
+  ONLINE_PLAN,
   PARTNER_CARDS,
   PLANS,
   SINGLE_SESSION,
@@ -301,6 +302,28 @@ export default function Home() {
                 </article>
               ))}
             </div>
+
+            <article className={styles.online}>
+              <div className={styles.onlineInfo}>
+                <span className={styles.onlineBadge}>Online</span>
+                <h3>{ONLINE_PLAN.name}</h3>
+                <p>{ONLINE_PLAN.description}</p>
+                <ul>
+                  {ONLINE_PLAN.features.map((feature) => (
+                    <li key={feature}>{feature}</li>
+                  ))}
+                </ul>
+              </div>
+              <div className={styles.onlineBuy}>
+                <p className={styles.onlinePrice}>{ONLINE_PLAN.price}</p>
+                <ChoosePlanLink
+                  option={planOption(ONLINE_PLAN)}
+                  className={styles.btnPrimary}
+                >
+                  Wybieram
+                </ChoosePlanLink>
+              </div>
+            </article>
 
             <div className={styles.single}>
               <div>

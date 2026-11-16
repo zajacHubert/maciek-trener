@@ -2,6 +2,7 @@ import {
   ADDRESS,
   CONTACT,
   INSTAGRAM_URL,
+  ONLINE_PLAN,
   PLANS,
   SINGLE_SESSION,
   SITE,
@@ -13,7 +14,7 @@ import {
 
 const price = (value: string) => Number(value.replace(/\D/g, ""));
 const [postalCode, ...cityParts] = ADDRESS.city.split(" ");
-const offers = [SINGLE_SESSION, ...PLANS];
+const offers = [SINGLE_SESSION, ...PLANS, ONLINE_PLAN];
 const prices = offers.map((plan) => price(plan.price));
 
 const data = {

@@ -14,7 +14,13 @@ import {
   type Field,
   type Values,
 } from "./contactValidation";
-import { CONTACT, PLANS, SINGLE_SESSION, planOption } from "./data";
+import {
+  CONTACT,
+  ONLINE_PLAN,
+  PLANS,
+  SINGLE_SESSION,
+  planOption,
+} from "./data";
 import { sendContact } from "./sendContact";
 import styles from "./page.module.css";
 
@@ -40,6 +46,7 @@ const SELECTS = [
     label: "Czy wybrałeś już pakiet?",
     options: [
       ...PLANS.map(planOption),
+      planOption(ONLINE_PLAN),
       planOption(SINGLE_SESSION),
       "Jeszcze nie wiem",
     ],
