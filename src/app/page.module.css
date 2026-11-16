@@ -1413,13 +1413,11 @@
   grid-area: form;
 }
 
-/* Logo na środku obszaru pod danymi kontaktowymi (lewa dolna część
-   sekcji; na telefonie – pod formularzem) */
+/* Logo w lewym dolnym rogu obszaru pod danymi kontaktowymi (na
+   telefonie – na środku pod formularzem) */
 .contactLogo {
   grid-area: logo;
-  place-self: center;
-  /* Nieco w lewo i w dół od środka */
-  translate: -48px 48px;
+  place-self: end start;
   width: 176px;
   height: auto;
   border-radius: 50%;
@@ -1846,7 +1844,6 @@
   .contactLogo {
     width: 112px;
     justify-self: center;
-    translate: none;
     /* Bliżej formularza: 56px odstępu siatki − 28px */
     margin-top: -28px;
   }
