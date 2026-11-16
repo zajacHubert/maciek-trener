@@ -243,4 +243,5 @@ export const ADDRESS = {
   place: "Zdrofit Koński Jar",
   street: "ul. Koński Jar 6",
   city: "02-785 Warszawa",
+  transit: "Blisko stacji metra M1 Ursynów",
 };

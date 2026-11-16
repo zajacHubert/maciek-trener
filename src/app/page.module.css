@@ -1363,6 +1363,28 @@
     linear-gradient(135deg, #4a2e28, var(--bg-2));
 }
 
+/* „Blisko stacji metra M1 Ursynów” pod adresem */
+.transit {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.metroBadge {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 1.6em;
+  height: 1.6em;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--text);
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 0.85em;
+}
+
 .studioInner {
   display: grid;
   grid-template-columns: 1.2fr 1fr;

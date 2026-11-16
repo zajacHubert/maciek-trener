@@ -391,6 +391,12 @@ export default function Home() {
                   <p>{ADDRESS.street}</p>
                   <p>{ADDRESS.city}</p>
                 </address>
+                <p className={styles.transit}>
+                  <span className={styles.metroBadge} aria-hidden="true">
+                    M
+                  </span>
+                  {ADDRESS.transit}
+                </p>
               </div>
               <div>
                 <h3>Godziny</h3>
