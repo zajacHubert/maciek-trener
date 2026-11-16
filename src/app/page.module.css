@@ -1753,6 +1753,13 @@
   .contactLogo {
     width: 112px;
     justify-self: center;
+    /* Bliżej formularza: 56px odstępu siatki − 28px */
+    margin-top: -28px;
+  }
+
+  /* Mniej miejsca pod logo – kończy sekcję */
+  .contactSection {
+    padding-bottom: 32px;
   }
 
   .aboutSection {
