@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   category: "fitness",
   alternates: { canonical: "/" },
   // Podgląd linku na Facebooku, WhatsAppie, Messengerze, LinkedInie itd.
-  // (obrazek: opengraph-image.tsx)
+  // (obrazek: opengraph-image.jpg)
   openGraph: {
     type: "website",
     locale: "pl_PL",

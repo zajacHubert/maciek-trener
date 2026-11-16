@@ -1,10 +1,14 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 const DURATION = 1800;
 
 // Liczba „nabija się” od zera, gdy pojawi się na ekranie (np. "10000+").
+// W HTML z serwera jest od razu prawdziwa wartość (widzi ją Google, podgląd
+// linku i przeglądarka bez JavaScriptu). Dopiero w przeglądarce, jeśli
+// liczba jest jeszcze poza ekranem, zerujemy ją i animujemy po przewinięciu.
+// Animacja zmienia sam tekst w elemencie – bez przerysowywania komponentu.
 export default function CountUp({
   value,
   className,
@@ -12,33 +16,35 @@ export default function CountUp({
   value: string;
   className?: string;
 }) {
-  const match = value.match(/^(\d+)(.*)$/);
-  const isNumber = match !== null;
-  const target = match ? Number(match[1]) : 0;
-  const suffix = match ? match[2] : "";
-
   const ref = useRef<HTMLSpanElement>(null);
-  const [current, setCurrent] = useState<number | null>(isNumber ? 0 : null);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el || !isNumber) return;
+    const match = value.match(/^(\d+)(.*)$/);
+    if (!el || !match) return;
+    const target = Number(match[1]);
+    const suffix = match[2];
+
+    const visible = el.getBoundingClientRect().top < window.innerHeight;
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    if (visible || reduceMotion) return;
+
+    const show = (n: number) => {
+      el.textContent = `${n}${suffix}`;
+    };
+    show(0);
 
     let frame = 0;
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;
         observer.disconnect();
-        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-          setCurrent(target);
-          return;
-        }
         const start = performance.now();
         const tick = (now: number) => {
           const t = Math.min((now - start) / DURATION, 1);
-          const eased = 1 - Math.pow(1 - t, 3);
-          setCurrent(Math.round(eased * target));
+          show(Math.round((1 - Math.pow(1 - t, 3)) * target));
           if (t < 1) frame = requestAnimationFrame(tick);
         };
         frame = requestAnimationFrame(tick);
@@ -50,12 +56,13 @@ export default function CountUp({
     return () => {
       observer.disconnect();
       cancelAnimationFrame(frame);
+      show(target);
     };
-  }, [isNumber, target]);
+  }, [value]);
 
   return (
-    <span ref={ref} className={className} aria-label={value}>
-      {current === null ? value : `${current}${suffix}`}
+    <span ref={ref} className={className}>
+      {value}
     </span>
   );
 }
