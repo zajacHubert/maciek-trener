@@ -46,8 +46,8 @@ const SELECTS = [
     label: "Czy wybrałeś już pakiet?",
     options: [
       ...PLANS.map(planOption),
-      planOption(ONLINE_PLAN),
       planOption(SINGLE_SESSION),
+      planOption(ONLINE_PLAN),
       "Jeszcze nie wiem",
     ],
   },

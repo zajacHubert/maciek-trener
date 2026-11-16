@@ -303,6 +303,20 @@ export default function Home() {
               ))}
             </div>
 
+            <div className={styles.single}>
+              <div>
+                <h3>{SINGLE_SESSION.name}</h3>
+                <p>{SINGLE_SESSION.features.join(" · ")}</p>
+              </div>
+              <p className={styles.singlePrice}>{SINGLE_SESSION.price}</p>
+              <ChoosePlanLink
+                option={planOption(SINGLE_SESSION)}
+                className={styles.btnOutline}
+              >
+                Wybieram
+              </ChoosePlanLink>
+            </div>
+
             <article className={styles.online}>
               <div className={styles.onlineInfo}>
                 <span className={styles.onlineBadge}>Online</span>
@@ -324,20 +338,6 @@ export default function Home() {
                 </ChoosePlanLink>
               </div>
             </article>
-
-            <div className={styles.single}>
-              <div>
-                <h3>{SINGLE_SESSION.name}</h3>
-                <p>{SINGLE_SESSION.features.join(" · ")}</p>
-              </div>
-              <p className={styles.singlePrice}>{SINGLE_SESSION.price}</p>
-              <ChoosePlanLink
-                option={planOption(SINGLE_SESSION)}
-                className={styles.btnOutline}
-              >
-                Wybieram
-              </ChoosePlanLink>
-            </div>
           </div>
         </section>
 
