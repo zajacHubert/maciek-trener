@@ -490,6 +490,22 @@
   object-position: center 29%;
 }
 
+/* Komputer: sekcja wyższa niż ekran – zdjęcie (ta sama szerokość
+   i wygaszanie) pokazuje sylwetkę mniej więcej do kolan. Wysokość liczona
+   od szerokości ekranu, bo od niej zależy powiększenie zdjęcia. */
+@media (min-width: 961px) {
+  .ctaSection {
+    min-height: max(100vh, 80vw);
+  }
+
+  /* Góra kadru jak wcześniej (głowa tuż pod górną krawędzią) – sekcja
+     wydłuża się tylko w dół. Przesunięcie liczone od szerokości zdjęcia
+     (60vw), więc kadr jest ten sam na każdym ekranie. */
+  .ctaPhoto img {
+    object-position: center -14vw;
+  }
+}
+
 /* ---------- Tło ze zdjęciem i odbiciami (komponent MirrorPhotoBg) ----------
    Zdjęcie na środku, na pełną wysokość sekcji. Po bokach jego lustrzane
    odbicia – boki wyglądają jak dalszy ciąg siłowni, lekko rozmyty
