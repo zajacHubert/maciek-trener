@@ -392,9 +392,7 @@ export default function Home() {
                   <p>{ADDRESS.city}</p>
                 </address>
                 <p className={styles.transit}>
-                  <span className={styles.metroBadge} aria-hidden="true">
-                    M
-                  </span>
+                  <MetroIcon />
                   {ADDRESS.transit}
                 </p>
               </div>
@@ -567,6 +565,23 @@ async function StatValue({
 }) {
   const shown = sinceYear ? `${await yearsSince(sinceYear)}${value}` : value;
   return <CountUp value={shown} className={styles.statValue} />;
+}
+
+/* Znak metra warszawskiego: czerwone „M” na białym tle */
+function MetroIcon() {
+  return (
+    <svg
+      className={styles.metroIcon}
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
+      <rect width="24" height="24" rx="4" fill="#fff" />
+      <path
+        d="M3.5 20V4h4.2L12 10.4 16.3 4h4.2v16h-4V10.6L12 17l-4.5-6.4V20Z"
+        fill="#e30613"
+      />
+    </svg>
+  );
 }
 
 function InstagramIcon() {

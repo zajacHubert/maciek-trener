@@ -1371,18 +1371,10 @@
   margin-top: 12px;
 }
 
-.metroBadge {
-  display: inline-grid;
-  place-items: center;
+.metroIcon {
   flex: none;
   width: 1.6em;
   height: 1.6em;
-  border-radius: 50%;
-  background: var(--accent);
-  color: var(--text);
-  font-family: var(--font-heading);
-  font-weight: 500;
-  font-size: 0.85em;
 }
 
 .studioInner {
