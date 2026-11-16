@@ -5,6 +5,7 @@ import ContactForm from "./ContactForm";
 import CountUp from "./CountUp";
 import HeroVideo from "./HeroVideo";
 import NavAutoClose from "./NavAutoClose";
+import StructuredData from "./StructuredData";
 import {
   ADDRESS,
   CONTACT,
@@ -89,6 +90,7 @@ export default function Home() {
         </div>
       </header>
 
+      <StructuredData />
       <main>
         <section id="start" className={styles.hero}>
           {/* Pierwsza klatka filmu – lekki obrazek widoczny od razu, zanim
@@ -172,7 +174,7 @@ export default function Home() {
           <div className={styles.aboutPhoto}>
             <Image
               src="/images/trener-na-silowni.jpeg"
-              alt="Maciej Lubowski"
+              alt="Maciej Lubowski – trener personalny na siłowni w Warszawie"
               fill
               sizes="(max-width: 960px) 100vw, 60vw"
             />
@@ -418,7 +420,8 @@ export default function Home() {
       </main>
 
       <footer className={styles.footer}>
-        © <CurrentYear /> Maciej Lubowski · Trener personalny
+        © <CurrentYear /> Maciej Lubowski · Trener personalny Warszawa
+        Ursynów
       </footer>
     </>
   );

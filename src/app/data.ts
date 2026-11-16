@@ -1,5 +1,30 @@
 // Treści strony w jednym miejscu – zmiany cen, pakietów czy kontaktu tylko tutaj.
 
+/** Adres strony i teksty SEO (tytuł, opis, słowa kluczowe).
+    Po podpięciu własnej domeny wystarczy ustawić NEXT_PUBLIC_SITE_URL
+    w zmiennych środowiskowych na Vercelu. */
+export const SITE = {
+  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://maciek-trener.vercel.app")
+    .replace(/\/$/, ""),
+  name: "Maciej Lubowski – Trener personalny",
+  title: "Trener personalny Warszawa Ursynów | Maciej Lubowski",
+  description:
+    "Maciej Lubowski – trener personalny w Warszawie na Ursynowie. Ponad 10 lat doświadczenia, indywidualny plan treningowy i dieta. Umów bezpłatną konsultację.",
+  keywords: [
+    "trener personalny Warszawa",
+    "trener personalny Ursynów",
+    "trening personalny Warszawa",
+    "treningi personalne Ursynów",
+    "trener personalny Zdrofit",
+    "trener personalny Natolin",
+    "trener personalny Kabaty",
+    "redukcja tkanki tłuszczowej",
+    "budowa masy mięśniowej",
+    "plan treningowy i dieta",
+    "Maciej Lubowski",
+  ],
+};
+
 export const NAV = [
   { href: "#start", label: "Start" },
   { href: "#o-mnie", label: "O mnie" },
