@@ -1418,7 +1418,7 @@
 .contactLogo {
   grid-area: logo;
   place-self: center;
-  width: 160px;
+  width: 176px;
   height: auto;
   border-radius: 50%;
 }

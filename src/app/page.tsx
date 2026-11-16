@@ -478,7 +478,7 @@ export default function Home() {
               alt=""
               width={224}
               height={224}
-              sizes="(max-width: 960px) 112px, 160px"
+              sizes="(max-width: 960px) 112px, 176px"
               className={styles.contactLogo}
             />
           </div>
