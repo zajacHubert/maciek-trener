@@ -490,6 +490,13 @@
   object-position: center 29%;
 }
 
+/* Komputer: napis i przycisk na dole sekcji (na telefonie – patrz niżej) */
+@media (min-width: 961px) {
+  .ctaSection {
+    align-items: flex-end;
+  }
+}
+
 /* ---------- Tło ze zdjęciem i odbiciami (komponent MirrorPhotoBg) ----------
    Zdjęcie na środku, na pełną wysokość sekcji. Po bokach jego lustrzane
    odbicia – boki wyglądają jak dalszy ciąg siłowni, lekko rozmyty
