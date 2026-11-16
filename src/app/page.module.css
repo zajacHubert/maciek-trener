@@ -1418,6 +1418,8 @@
 .contactLogo {
   grid-area: logo;
   place-self: center;
+  /* Nieco w lewo i w dół od środka */
+  translate: -48px 48px;
   width: 176px;
   height: auto;
   border-radius: 50%;
@@ -1844,6 +1846,7 @@
   .contactLogo {
     width: 112px;
     justify-self: center;
+    translate: none;
     /* Bliżej formularza: 56px odstępu siatki − 28px */
     margin-top: -28px;
   }
