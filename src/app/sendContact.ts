@@ -1,7 +1,7 @@
 "use server";
 
 import { Resend } from "resend";
-import { validate } from "./contactValidation";
+import { MAX_LENGTH, validate } from "./contactValidation";
 
 export type SendResult = { ok: true } | { ok: false; error: string };
 
@@ -16,7 +16,12 @@ const GENERIC_ERROR =
   "Nie udało się wysłać wiadomości. Spróbuj ponownie za chwilę.";
 
 export async function sendContact(formData: FormData): Promise<SendResult> {
-  const get = (key: string) => String(formData.get(key) ?? "").trim();
+  // Formularz ogranicza długość pól, ale akcję da się wywołać z pominięciem
+  // formularza – dlatego przycinamy też tutaj (selekty: 200 znaków).
+  const get = (key: string) =>
+    String(formData.get(key) ?? "")
+      .trim()
+      .slice(0, MAX_LENGTH[key as keyof typeof MAX_LENGTH] ?? 200);
 
   // Ukryte pole – wypełniają je tylko boty. Udajemy sukces, nic nie wysyłamy.
   if (get("website")) return { ok: true };
@@ -52,7 +57,8 @@ export async function sendContact(formData: FormData): Promise<SendResult> {
       "Formularz kontaktowy <onboarding@resend.dev>",
     to,
     replyTo: values.email || undefined,
-    subject: `Nowe zgłoszenie ze strony – ${values.name}`,
+    // Bez znaków nowej linii – temat maila to jedna linia
+    subject: `Nowe zgłoszenie ze strony – ${values.name.replace(/\s+/g, " ")}`,
     text: lines.join("\n"),
   });
 

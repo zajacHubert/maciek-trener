@@ -1507,6 +1507,46 @@
   gap: 8px;
 }
 
+/* Informacja RODO pod przyciskiem – mała, rozwijana */
+.privacy {
+  font-size: var(--fs-small);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.privacy p {
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.privacy summary {
+  width: fit-content;
+  margin-top: 4px;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.privacy summary:hover {
+  color: var(--text);
+}
+
+.privacy ul {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 10px;
+  padding-left: 1.2em;
+}
+
+.privacy strong {
+  font-weight: 600;
+}
+
+.privacy a {
+  text-decoration: underline;
+}
+
 /* Podziękowanie zastępuje formularz i zajmuje tylko tyle miejsca,
    ile potrzebuje. */
 .formSent {

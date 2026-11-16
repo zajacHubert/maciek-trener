@@ -3,6 +3,14 @@
 export type Values = { name: string; email: string; phone: string };
 export type Field = keyof Values | "contact";
 
+/** Maksymalna długość pól – w formularzu (maxLength) i na serwerze. */
+export const MAX_LENGTH = {
+  name: 60,
+  email: 254,
+  phone: 30,
+  message: 3000,
+} as const;
+
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const PHONE_RE = /^\+?[\d\s()-]+$/;
 

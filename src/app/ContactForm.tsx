@@ -5,11 +5,16 @@ import {
   useRef,
   useState,
   useTransition,
-  type FormEvent,
+  type SubmitEvent,
 } from "react";
 import { CHOOSE_PLAN_EVENT } from "./ChoosePlanLink";
-import { validate, type Field, type Values } from "./contactValidation";
-import { PLANS, SINGLE_SESSION, planOption } from "./data";
+import {
+  MAX_LENGTH,
+  validate,
+  type Field,
+  type Values,
+} from "./contactValidation";
+import { CONTACT, PLANS, SINGLE_SESSION, planOption } from "./data";
 import { sendContact } from "./sendContact";
 import styles from "./page.module.css";
 
@@ -81,7 +86,7 @@ export default function ContactForm() {
       ...Object.fromEntries(fields.map((f) => [f, true])),
     }));
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     touch("name", "email", "phone", "contact");
     if (Object.keys(errors).length > 0) {
@@ -143,6 +148,7 @@ export default function ContactForm() {
         className={cx(styles.form, sent && styles.formHidden)}
         onSubmit={handleSubmit}
         noValidate
+        aria-label="Formularz kontaktowy"
         inert={sent}
         aria-busy={pending}
       >
@@ -150,6 +156,7 @@ export default function ContactForm() {
           label="Imię *"
           name="name"
           autoComplete="given-name"
+          required
           value={values.name}
           error={show("name")}
           onChange={update("name")}
@@ -166,7 +173,7 @@ export default function ContactForm() {
               value={values.email}
               error={show("email")}
               invalid={!!contactError}
-              describedBy={contactError ? "contact-error" : undefined}
+              describedBy="contact-error"
               onChange={update("email")}
               onBlur={() => touch("email")}
             />
@@ -178,7 +185,7 @@ export default function ContactForm() {
               value={values.phone}
               error={show("phone")}
               invalid={!!contactError}
-              describedBy={contactError ? "contact-error" : undefined}
+              describedBy="contact-error"
               onChange={update("phone")}
               onBlur={() => touch("phone", "contact")}
             />
@@ -193,10 +200,11 @@ export default function ContactForm() {
         </div>
 
         {SELECTS.map((select) => (
-          <label key={select.name}>
+          <label key={select.name} htmlFor={select.name}>
             {select.label}
             <span className={styles.selectWrap}>
               <select
+                id={select.name}
                 name={select.name}
                 {...(select.name === "package"
                   ? { value: plan, onChange: (e) => setPlan(e.target.value) }
@@ -213,12 +221,14 @@ export default function ContactForm() {
           </label>
         ))}
 
-        <label>
+        <label htmlFor="message">
           Coś jeszcze? (opcjonalnie)
           <textarea
+            id="message"
             name="message"
             rows={4}
-            placeholder="Np. kontuzje lub problemy zdrowotne, dotychczasowe doświadczenie z treningiem, preferowane dni i godziny treningów."
+            maxLength={MAX_LENGTH.message}
+            placeholder="Np. dotychczasowe doświadczenie z treningiem, preferowane dni i godziny treningów."
           />
         </label>
 
@@ -236,6 +246,8 @@ export default function ContactForm() {
             {submitError}
           </p>
         </div>
+
+        <PrivacyNote />
       </form>
     </div>
   );
@@ -249,6 +261,7 @@ function TextField({
   name,
   type = "text",
   autoComplete,
+  required,
   value,
   error,
   invalid,
@@ -260,6 +273,7 @@ function TextField({
   name: string;
   type?: string;
   autoComplete?: string;
+  required?: boolean;
   value: string;
   error?: string;
   invalid?: boolean;
@@ -271,12 +285,15 @@ function TextField({
   const ids = [error && errorId, describedBy].filter(Boolean).join(" ");
 
   return (
-    <label>
+    <label htmlFor={name}>
       {label}
       <input
+        id={name}
         type={type}
         name={name}
         autoComplete={autoComplete}
+        required={required}
+        maxLength={MAX_LENGTH[name as keyof Values]}
         value={value}
         aria-invalid={!!error || !!invalid}
         aria-describedby={ids || undefined}
@@ -288,5 +305,52 @@ function TextField({
         {error}
       </span>
     </label>
+  );
+}
+
+// Informacja RODO (art. 13) – podana w chwili zbierania danych, więc nie
+// potrzeba osobnej strony z polityką prywatności.
+function PrivacyNote() {
+  return (
+    <div className={styles.privacy}>
+      <p>
+        Wysyłając formularz, przekazujesz mi swoje dane wyłącznie w celu
+        odpowiedzi na wiadomość.
+      </p>
+      <details>
+        <summary>Więcej o przetwarzaniu danych</summary>
+        <ul>
+          <li>
+            <strong>Administrator:</strong> Maciej Lubowski, e-mail:{" "}
+            <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>.
+          </li>
+          <li>
+            <strong>Cel i podstawa:</strong> odpowiedź na wiadomość
+            i ewentualne ustalenie współpracy (art. 6 ust. 1 lit. b i f RODO).
+            Podanie danych jest dobrowolne, ale bez nich nie mogę odpowiedzieć.
+          </li>
+          <li>
+            <strong>Odbiorcy:</strong> firmy, które technicznie obsługują
+            stronę i wysyłkę wiadomości – Vercel (hosting) i Resend (poczta).
+            Dane mogą być przekazywane do USA na podstawie EU-US Data Privacy
+            Framework.
+          </li>
+          <li>
+            <strong>Okres przechowywania:</strong> do zakończenia rozmowy,
+            a jeśli zaczniemy współpracę – przez czas jej trwania.
+          </li>
+          <li>
+            <strong>Twoje prawa:</strong> dostęp do danych, ich poprawienie,
+            usunięcie, ograniczenie przetwarzania, przeniesienie i sprzeciw.
+            Możesz też złożyć skargę do Prezesa Urzędu Ochrony Danych
+            Osobowych.
+          </li>
+          <li>
+            Strona nie używa narzędzi analitycznych ani własnych plików
+            cookies. Osadzona mapa Google może zapisywać pliki cookies Google.
+          </li>
+        </ul>
+      </details>
+    </div>
   );
 }
