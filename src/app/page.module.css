@@ -490,6 +490,18 @@
   object-position: center 29%;
 }
 
+/* Komputer: węższe zdjęcie = mniejsze powiększenie pionowej fotografii,
+   więc mieści się więcej sylwetki (od czapki po kolana) */
+@media (min-width: 961px) {
+  .ctaPhoto {
+    width: 40%;
+  }
+
+  .ctaPhoto img {
+    object-position: center 8%;
+  }
+}
+
 /* ---------- Tło ze zdjęciem i odbiciami (komponent MirrorPhotoBg) ----------
    Zdjęcie na środku, na pełną wysokość sekcji. Po bokach jego lustrzane
    odbicia – boki wyglądają jak dalszy ciąg siłowni, lekko rozmyty
