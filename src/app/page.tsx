@@ -164,7 +164,10 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="o-mnie" className={cx(styles.section, styles.aboutSection)}>
+        <section
+          id="o-mnie"
+          className={cx(styles.section, styles.aboutSection, styles.concrete)}
+        >
           <div className={styles.aboutPhoto}>
             <Image
               src="/images/trener-na-silowni.jpeg"
@@ -299,7 +302,25 @@ export default function Home() {
           </div>
         </section>
 
-        <section className={cx(styles.cta, styles.parallax)}>
+        <section className={cx(styles.cta, styles.concrete)}>
+          <div className={styles.ctaPhotos} aria-hidden="true">
+            {/* Rozmyty pas: odbicie | kopia zdjęcia | odbicie */}
+            <div className={styles.ctaBlurRow}>
+              <div className={cx(styles.ctaPhotoSide, styles.ctaPhotoLeft)}>
+                <CtaPhoto />
+              </div>
+              <div className={styles.ctaPhotoCenter}>
+                <CtaPhoto />
+              </div>
+              <div className={cx(styles.ctaPhotoSide, styles.ctaPhotoRight)}>
+                <CtaPhoto />
+              </div>
+            </div>
+            {/* Ostre zdjęcie na wierzchu */}
+            <div className={styles.ctaPhoto}>
+              <CtaPhoto />
+            </div>
+          </div>
           <h2 className={styles.ctaTitle}>
             <span>Gotowy na zmianę?</span>
             <span>Poprowadzę Cię krok po kroku</span>
@@ -443,6 +464,18 @@ function PhoneIcon() {
     <LineIcon>
       <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
     </LineIcon>
+  );
+}
+
+// To samo zdjęcie (ten sam plik, pobierany raz) w środku i w odbiciach po bokach
+function CtaPhoto() {
+  return (
+    <Image
+      src="/images/trener-na-lawce.jpg"
+      alt=""
+      fill
+      sizes="(max-width: 960px) 100vw, 40vw"
+    />
   );
 }
 

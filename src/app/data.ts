@@ -21,7 +21,7 @@ export const TRAINING_SINCE = 2006;
 export const STATS: { value: string; label: string; sinceYear?: number }[] = [
   { value: "+", sinceYear: TRAINING_SINCE, label: "lat treningu siłowego" },
   {
-    value: "",
+    value: "+",
     sinceYear: COACHING_SINCE,
     label: "lat doświadczenia jako trener",
   },
