@@ -64,7 +64,7 @@ export type Plan = {
 export const PLANS: Plan[] = [
   {
     name: "Pakiet Start",
-    price: "1449 zł",
+    price: "1399 zł",
     features: [
       "8 treningów",
       "Analiza mobilności i zakresu ruchu",
@@ -74,7 +74,7 @@ export const PLANS: Plan[] = [
   },
   {
     name: "Pakiet Fundament",
-    price: "2599 zł",
+    price: "2499 zł",
     features: [
       "15 treningów (2–3 razy w tygodniu)",
       "Analiza mobilności i zakresu ruchu",
@@ -85,7 +85,7 @@ export const PLANS: Plan[] = [
   },
   {
     name: "Pakiet Transformacja",
-    price: "4899 zł",
+    price: "4599 zł",
     features: [
       "30 treningów (3–4 razy w tygodniu)",
       "Analiza mobilności i zakresu ruchu",
@@ -99,7 +99,7 @@ export const PLANS: Plan[] = [
 /** Pojedynczy trening – pokazywany pod pakietami jako skromniejsza opcja. */
 export const SINGLE_SESSION: Plan = {
   name: "Trening personalny (1h)",
-  price: "190 zł",
+  price: "180 zł",
   features: ["Pojedyncza sesja treningowa"],
 };
 
@@ -126,7 +126,7 @@ export const STEPS = [
 
 export const FEATURED_LABEL = "Najczęściej wybierany";
 
-/** Tekst opcji pakietu w formularzu, np. „Pakiet Start – 1499 zł”. */
+/** Tekst opcji pakietu w formularzu, np. „Pakiet Start – 1399 zł”. */
 export const planOption = (plan: Plan) =>
   `${plan.name} – ${plan.price}` +
   (plan.featured ? ` (${FEATURED_LABEL.toLowerCase()})` : "");
