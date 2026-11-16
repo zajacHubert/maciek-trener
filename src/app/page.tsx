@@ -478,10 +478,10 @@ export default function Home() {
             {/* Komputer: lewy dolny róg sekcji, pod danymi kontaktowymi.
                 Telefon: na samym dole, pod formularzem. */}
             <Image
-              src="/images/logo-maciej-lubowski.png"
+              src="/images/logo-maciej-lubowski-przezroczyste.png"
               alt=""
-              width={224}
-              height={224}
+              width={420}
+              height={397}
               sizes="(max-width: 960px) 112px, 176px"
               className={styles.contactLogo}
             />
