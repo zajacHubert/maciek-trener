@@ -1311,7 +1311,28 @@
 .contact {
   display: grid;
   grid-template-columns: 1fr 1.3fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "info form"
+    "logo form";
   gap: 80px;
+}
+
+.contactInfo {
+  grid-area: info;
+}
+
+.contactForm {
+  grid-area: form;
+}
+
+/* Logo w lewym dolnym rogu sekcji (na telefonie – pod formularzem) */
+.contactLogo {
+  grid-area: logo;
+  align-self: end;
+  width: 160px;
+  height: auto;
+  border-radius: 50%;
 }
 
 .contactLinks {
@@ -1721,7 +1742,17 @@
   .studioInner,
   .contact {
     grid-template-columns: 1fr;
+    grid-template-rows: none;
+    grid-template-areas:
+      "info"
+      "form"
+      "logo";
     gap: 56px;
+  }
+
+  .contactLogo {
+    width: 112px;
+    justify-self: center;
   }
 
   .aboutSection {

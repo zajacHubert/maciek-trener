@@ -412,7 +412,7 @@ export default function Home() {
             className={styles.contactMirror}
           />
           <div className={cx(styles.container, styles.contact)}>
-            <div>
+            <div className={styles.contactInfo}>
               <h2 className={styles.sectionTitle}>Kontakt</h2>
               <p className={styles.eyebrow}>
                 Napisz lub zadzwoń, jeśli masz pytania
@@ -444,7 +444,20 @@ export default function Home() {
               </ul>
             </div>
 
-            <ContactForm />
+            <div className={styles.contactForm}>
+              <ContactForm />
+            </div>
+
+            {/* Komputer: lewy dolny róg sekcji, pod danymi kontaktowymi.
+                Telefon: na samym dole, pod formularzem. */}
+            <Image
+              src="/images/logo-maciej-lubowski.png"
+              alt=""
+              width={224}
+              height={224}
+              sizes="(max-width: 960px) 112px, 160px"
+              className={styles.contactLogo}
+            />
           </div>
         </section>
       </main>
