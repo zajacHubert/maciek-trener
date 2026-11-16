@@ -91,7 +91,7 @@ export const STEPS = [
   },
   {
     title: "Wspólne treningi",
-    text: "Nauka techniki, poprawa mobilności, budujemy siłę i zdrowe nawyki.",
+    text: "Realizacja planu treningowego. Nauka techniki wykonywania ćwiczeń, poprawa mobilności i zakresu ruchu. Pracujemy nad budowaniem siły i zdrowych nawyków.",
   },
   {
     title: "Kontrola postępów",
