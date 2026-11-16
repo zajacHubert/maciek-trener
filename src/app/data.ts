@@ -99,7 +99,7 @@ export const PLANS: Plan[] = [
 /** Współpraca online – osobna karta pod pakietami (bez treningów na siłowni). */
 export const ONLINE_PLAN: Plan & { description: string } = {
   name: "Współpraca Online (3 miesiące)",
-  price: "999 zł",
+  price: "1119 zł",
   description:
     "Dla osób, które potrzebują prowadzenia i planu, ale trenują samodzielnie.",
   features: [

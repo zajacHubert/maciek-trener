@@ -1929,6 +1929,13 @@
     mask-image: none;
   }
 
+  /* Mniej tła nad głową: zdjęcie lekko powiększone od dołu, więc góra
+     wychodzi poza sekcję (dół z napisem zostaje na miejscu) */
+  .ctaPhoto img {
+    transform: scale(1.15);
+    transform-origin: center bottom;
+  }
+
   .ctaPhoto::after {
     content: "";
     position: absolute;
