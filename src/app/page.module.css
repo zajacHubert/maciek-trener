@@ -1162,8 +1162,9 @@
   grid-template-columns: 1fr auto auto;
   align-items: center;
   gap: 16px 40px;
-  /* Węższy niż pakiety – skromniejsza opcja */
-  width: 90%;
+  /* Od połowy lewego do połowy prawego kafelka z pakietami: pakiety to
+     3 kolumny z odstępem 32px, więc szerokość = całość − 1 kolumna */
+  width: calc((200% + 64px) / 3);
   margin: 48px auto 0;
   padding: clamp(24px, 3vw, 32px) clamp(20px, 3vw, 40px);
   border: 1px solid var(--line);
@@ -1934,6 +1935,11 @@
 
   .plans {
     grid-template-columns: 1fr;
+  }
+
+  /* Pakiety jeden pod drugim – kafelek po prostu nieco węższy */
+  .single {
+    width: 90%;
   }
 
   .planFeatured {
