@@ -238,20 +238,29 @@
   position: absolute;
   inset: 0;
   z-index: 1;
+  /* Góra filmu prawie odsłonięta, przyciemnienie rośnie ku dołowi,
+     gdzie są teksty i przyciski */
   background: linear-gradient(
-    rgba(27, 24, 29, 0.5),
-    rgba(27, 24, 29, 0.85)
+    rgba(27, 24, 29, 0.2),
+    rgba(27, 24, 29, 0.35) 40%,
+    rgba(27, 24, 29, 0.88)
   );
 }
 
+/* Teksty i przyciski w dolnej części ekranu, żeby było widać film.
+   Odstęp od dołu liczony od wysokości ekranu – na niskich ekranach
+   (laptopy, telefon poziomo) treść sama wypełnia hero i nic nie nachodzi. */
 .heroContent {
   position: relative;
   z-index: 2;
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
+  padding-bottom: clamp(40px, 9vh, 110px);
+  /* Teksty bywają na jaśniejszym fragmencie filmu – cień trzyma czytelność */
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -303,6 +312,11 @@
 
 .heroLocation:hover {
   border-color: var(--accent);
+}
+
+.heroLocation,
+.heroButtons {
+  text-shadow: none;
 }
 
 /* Ikonka Instagrama pod przyciskami – tylko na telefonie */
@@ -1388,10 +1402,6 @@
     --hero-offset: calc(var(--header-h) / 2);
   }
 
-  .heroContent {
-    top: var(--hero-offset);
-  }
-
   .heroVideo,
   .heroOverlay {
     top: var(--hero-offset);
@@ -1545,6 +1555,13 @@
 
   .heroInstagram {
     display: inline-block;
+    margin-top: 20px;
+  }
+
+  /* Na telefonie przyciski są pod sobą, więc treść jest wysoka –
+     mniejszy odstęp od dołu zostawia więcej miejsca na film */
+  .heroContent {
+    padding-bottom: clamp(20px, 4vh, 40px);
   }
 
   .statsGrid {
