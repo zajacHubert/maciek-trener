@@ -37,6 +37,12 @@ const MAP_URL = `https://maps.google.com/maps?q=${encodeURIComponent(
 const cx = (...classes: (string | false | undefined)[]) =>
   classes.filter(Boolean).join(" ");
 
+// Najdroższy pakiet – wyróżniony pomarańczową ramką i przyciskiem
+const priceValue = (price: string) => Number(price.replace(/\D/g, ""));
+const PREMIUM_PLAN = PLANS.reduce((max, plan) =>
+  priceValue(plan.price) > priceValue(max.price) ? plan : max,
+);
+
 export default function Home() {
   return (
     <>
@@ -195,8 +201,9 @@ export default function Home() {
                 być skrojony pod Twoje życie, Twoje cele i Twój czas.
               </p>
               <blockquote className={styles.quote}>
-                „Zacznij tam, gdzie jesteś. Użyj tego, co masz. Rób to, co
-                możesz.”
+                <span>„Zacznij tam, gdzie jesteś.</span>{" "}
+                <span>Użyj tego, co masz.</span>{" "}
+                <span>Rób to, co możesz.”</span>
               </blockquote>
             </div>
           </div>
@@ -265,7 +272,11 @@ export default function Home() {
               {PLANS.map((plan) => (
                 <article
                   key={plan.name}
-                  className={cx(styles.plan, plan.featured && styles.planFeatured)}
+                  className={cx(
+                    styles.plan,
+                    plan.featured && styles.planFeatured,
+                    plan === PREMIUM_PLAN && styles.planPremium,
+                  )}
                 >
                   {plan.featured && (
                     <span className={styles.planBadge}>{FEATURED_LABEL}</span>
@@ -280,7 +291,9 @@ export default function Home() {
                   <ChoosePlanLink
                     option={planOption(plan)}
                     className={
-                      plan.featured ? styles.btnPrimary : styles.btnOutline
+                      plan.featured || plan === PREMIUM_PLAN
+                        ? styles.btnPrimary
+                        : styles.btnOutline
                     }
                   >
                     Wybieram
