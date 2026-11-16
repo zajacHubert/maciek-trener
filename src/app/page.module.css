@@ -181,6 +181,25 @@
   color: var(--text);
 }
 
+/* Instagram w menu: na desktopie sama ikonka przed „Start”,
+   na mobile ostatnia pozycja z podpisem */
+.nav .navInstagram {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.25em;
+  line-height: 0;
+  color: var(--accent);
+}
+
+.nav .navInstagram:hover {
+  opacity: 0.8;
+}
+
+.navInstagramLabel {
+  display: none;
+}
+
 .navToggle,
 .burger {
   display: none;
@@ -260,7 +279,8 @@
 .heroTagline {
   font-size: var(--fs-ui);
   font-style: italic;
-  color: rgba(255, 255, 255, 0.85);
+  font-weight: 600;
+  color: var(--accent);
   margin-bottom: 24px;
 }
 
@@ -283,6 +303,20 @@
 
 .heroLocation:hover {
   border-color: var(--accent);
+}
+
+/* Ikonka Instagrama pod przyciskami – tylko na telefonie */
+.heroInstagram {
+  display: none;
+  margin-top: 28px;
+  font-size: 34px;
+  line-height: 0;
+  color: var(--accent);
+  transition: opacity 0.2s;
+}
+
+.heroInstagram:hover {
+  opacity: 0.8;
 }
 
 .heroButtons {
@@ -544,13 +578,18 @@
   min-width: 440px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 120px 28px 28px;
+  gap: 10px;
+  padding: 56px 28px 24px;
+  /* Lekkie przyciemnienie, żeby było widać sylwetkę (nogi) pod opisem –
+     czytelność tekstu trzyma cień pod literami */
   background: linear-gradient(
     transparent,
-    rgba(0, 0, 0, 0.85) 40%,
-    rgba(0, 0, 0, 0.92)
+    rgba(0, 0, 0, 0.35) 45%,
+    rgba(0, 0, 0, 0.55)
   );
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.9),
+    0 0 12px rgba(0, 0, 0, 0.6);
   opacity: 0;
   transform: translateY(16px);
   transition:
@@ -581,7 +620,7 @@
   font-size: var(--fs-small);
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .transformationStats em {
@@ -736,6 +775,7 @@
     min-width: 0;
     padding: 20px;
     background: none;
+    text-shadow: none;
     opacity: 1;
     transform: none;
   }
@@ -896,6 +936,79 @@
   color: var(--muted);
 }
 
+.single {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 16px 40px;
+  margin-top: 48px;
+  padding: clamp(24px, 3vw, 32px) clamp(20px, 3vw, 40px);
+  border: 1px solid var(--line);
+  background: var(--bg);
+}
+
+.single h3 {
+  font-size: var(--fs-h3);
+  margin-bottom: 4px;
+}
+
+.singlePrice {
+  font-family: var(--font-heading);
+  font-size: var(--fs-h2);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--accent) !important;
+}
+
+/* ---------- Etapy współpracy ---------- */
+
+.stepsTitle {
+  font-size: var(--fs-h3);
+  margin: clamp(56px, 7vw, 88px) 0 32px;
+}
+
+.steps {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.step {
+  padding: 28px 24px 32px;
+  border-top: 2px solid var(--accent);
+  background: var(--bg-2);
+}
+
+.stepNumber {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: var(--fs-display);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.step h4 {
+  font-size: var(--fs-h3);
+  margin-bottom: 12px;
+}
+
+.section .step p {
+  font-size: var(--fs-ui);
+  line-height: 1.6;
+}
+
+.section .step p + p {
+  margin-top: 0;
+}
+
+.section .step .stepNote {
+  color: var(--accent-light);
+  margin-bottom: 8px;
+}
+
 /* ---------- Studio ---------- */
 
 .studio {
@@ -939,6 +1052,26 @@
   text-transform: uppercase;
 }
 
+/* Honorowane karty sportowe – na całą szerokość pod adresem i godzinami */
+.studioCards {
+  grid-column: 1 / -1;
+}
+
+.studioCards ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.studioCards img {
+  display: block;
+  width: 88px;
+  height: auto;
+  /* Obrazki kart mają białe rogi – przycinamy je do zaokrąglonej karty */
+  clip-path: inset(3% 2% round 8px);
+}
+
 /* ---------- Kontakt ---------- */
 
 .contact {
@@ -947,15 +1080,30 @@
   gap: 80px;
 }
 
-.contactLine {
+.contactLinks {
+  list-style: none;
   font-family: var(--font-heading);
   font-size: var(--fs-h3);
-  overflow-wrap: anywhere;
   letter-spacing: 0.08em;
+}
+
+.contactLinks li {
   margin-top: 16px;
 }
 
-.contactLine a:hover {
+.contactLinks a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  overflow-wrap: anywhere;
+}
+
+.contactLinks a:hover {
+  color: var(--accent);
+}
+
+.contactLinks svg {
+  flex-shrink: 0;
   color: var(--accent);
 }
 
@@ -1195,7 +1343,6 @@
   color: var(--muted);
   background: var(--bg-3);
 }
-
 /* ---------- Responsywność ---------- */
 
 /* Tuż przed przejściem na burger menu z 7 pozycjami jest ciasne */
@@ -1274,6 +1421,21 @@
     border-top: 1px solid var(--line);
   }
 
+  .nav .navInstagram {
+    order: 1;
+    justify-content: center;
+    font-size: inherit;
+    line-height: inherit;
+  }
+
+  .navInstagram svg {
+    font-size: 1.25em;
+  }
+
+  .navInstagramLabel {
+    display: inline;
+  }
+
   .navToggle:checked ~ .nav {
     display: flex;
   }
@@ -1321,6 +1483,18 @@
   .planFeatured {
     transform: none;
   }
+
+  .steps {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .single {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
 }
 
 @media (max-width: 560px) {
@@ -1337,6 +1511,10 @@
     --section-pad: 64px;
   }
 
+  .steps {
+    grid-template-columns: 1fr;
+  }
+
 
   .brandLogo {
     width: 44px;
@@ -1348,6 +1526,10 @@
     align-items: stretch;
     width: 100%;
     max-width: 320px;
+  }
+
+  .heroInstagram {
+    display: inline-block;
   }
 
   .statsGrid {

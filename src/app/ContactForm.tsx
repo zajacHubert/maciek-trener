@@ -9,7 +9,7 @@ import {
 } from "react";
 import { CHOOSE_PLAN_EVENT } from "./ChoosePlanLink";
 import { validate, type Field, type Values } from "./contactValidation";
-import { PLANS, planOption } from "./data";
+import { PLANS, SINGLE_SESSION, planOption } from "./data";
 import { sendContact } from "./sendContact";
 import styles from "./page.module.css";
 
@@ -33,7 +33,11 @@ const SELECTS = [
   {
     name: "package",
     label: "Czy wybrałeś już pakiet?",
-    options: [...PLANS.map(planOption), "Jeszcze nie wiem"],
+    options: [
+      ...PLANS.map(planOption),
+      planOption(SINGLE_SESSION),
+      "Jeszcze nie wiem",
+    ],
   },
 ];
 

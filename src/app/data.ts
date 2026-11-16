@@ -10,9 +10,21 @@ export const NAV = [
   { href: "#kontakt", label: "Kontakt" },
 ];
 
-export const STATS = [
-  { value: "20+", label: "lat treningu siłowego" },
-  { value: "10+", label: "lat doświadczenia jako trener" },
+/** Rok, w którym Maciek zaczął pracę jako trener – z niego liczony jest staż. */
+export const COACHING_SINCE = 2015;
+
+/** Rok, w którym Maciek zaczął trenować na siłowni („20 lat” w 2026). */
+export const TRAINING_SINCE = 2006;
+
+// `sinceYear` = wartość liczona dynamicznie jako „bieżący rok − sinceYear”
+// (z dopisanym `value` na końcu, np. „+”).
+export const STATS: { value: string; label: string; sinceYear?: number }[] = [
+  { value: "+", sinceYear: TRAINING_SINCE, label: "lat treningu siłowego" },
+  {
+    value: "",
+    sinceYear: COACHING_SINCE,
+    label: "lat doświadczenia jako trener",
+  },
   { value: "10000+", label: "godzin treningów personalnych" },
   { value: "100%", label: "pasji, zaangażowania i indywidualnego podejścia" },
 ];
@@ -59,6 +71,34 @@ export const PLANS: Plan[] = [
   },
 ];
 
+/** Pojedynczy trening – pokazywany pod pakietami jako skromniejsza opcja. */
+export const SINGLE_SESSION: Plan = {
+  name: "Trening personalny (1h)",
+  price: "190 zł",
+  features: ["Pojedyncza sesja treningowa"],
+};
+
+/** Etapy współpracy – sekcja „Oferta”. */
+export const STEPS = [
+  {
+    title: "Konsultacja",
+    note: "30–45 minut · bezpłatnie",
+    text: "Bezpłatna rozmowa wstępna. Omawiamy Twój cel, przedstawiasz swoją dotychczasową przygodę ze sportem/siłownią, Twoją historię zdrowotną. Wstępna weryfikacja, czy nadajemy się do współpracy.",
+  },
+  {
+    title: "Plan działania",
+    text: "Analiza Twojej sprawności, mobilności i wzorców ruchowych. Otrzymujesz konkretną strategię skrojoną pod Twój czas, możliwości i życie zawodowe.",
+  },
+  {
+    title: "Wspólne treningi",
+    text: "Nauka techniki, poprawa mobilności, budujemy siłę i zdrowe nawyki.",
+  },
+  {
+    title: "Kontrola postępów",
+    text: "Regularne monitorowanie efektów na przestrzeni tygodni i miesięcy. Na bieżąco optymalizujemy działania, żeby dowieźć postawiony cel.",
+  },
+];
+
 export const FEATURED_LABEL = "Najczęściej wybierany";
 
 /** Tekst opcji pakietu w formularzu, np. „Pakiet Start – 1499 zł”. */
@@ -90,9 +130,9 @@ export const TRANSFORMATIONS: Transformation[] = [
     name: "Piotr",
     age: "42 lata",
     duration: "16 miesięcy",
-    weight: [130, 89],
+    weight: [125, 89],
     description:
-      "Bardzo długi okres redukcji, podczas którego nastawienie było na rekompozycję sylwetki, czyli zbudowanie trochę masy mięśniowej.",
+      "Bardzo długi okres redukcji, nastawiony na rekompozycję sylwetki, czyli spalenie tkanki tłuszczowej i budowanie masy mięśniowej.",
     before: { src: `${PHOTOS}/piotr-przed.jpg`, position: "45% 50%" },
     after: { src: `${PHOTOS}/piotr-po.jpg`, position: "50% 25%" },
   },
@@ -108,8 +148,8 @@ export const TRANSFORMATIONS: Transformation[] = [
   },
   {
     name: "Krzysztof",
-    age: "42 lata",
-    duration: "8 miesięcy",
+    age: "31 lat",
+    duration: "10 miesięcy",
     weight: [82, 73],
     description: "Redukcja z formą na lato.",
     before: { src: `${PHOTOS}/krzysztof-przed.jpg`, position: "35% 25%" },
@@ -117,7 +157,7 @@ export const TRANSFORMATIONS: Transformation[] = [
   },
   {
     name: "Piotr",
-    age: "41 lat",
+    age: "44 lata",
     duration: "6 lat",
     weight: [82, 103],
     description:
@@ -137,13 +177,28 @@ export const TRANSFORMATIONS: Transformation[] = [
   },
 ];
 
-/** Rok urodzenia trenera – z niego liczony jest wiek w sekcji „O mnie”. */
-export const BIRTH_YEAR = 1988;
+/** Data urodzenia trenera – z niej liczony jest wiek w sekcji „O mnie” (rośnie w urodziny). */
+export const BIRTH_DATE = { year: 1988, month: 5, day: 15 };
 
 export const CONTACT = {
   email: "macieklubo23@poczta.onet.pl",
   phone: "+48 793 175 700",
+  instagram: "lu_boski",
 };
+
+export const INSTAGRAM_URL = `https://www.instagram.com/${CONTACT.instagram}/`;
+export const PHONE_URL = `tel:${CONTACT.phone.replace(/\s/g, "")}`;
+/** wa.me wymaga numeru z kierunkowym, bez „+” i spacji. */
+export const WHATSAPP_URL = `https://wa.me/${CONTACT.phone.replace(/\D/g, "")}`;
+
+/** Karty sportowe honorowane w klubie (wg strony klubu na zdrofit.pl). */
+export const PARTNER_CARDS = [
+  { name: "Multisport", src: "/images/karty/multisport.jpg" },
+  { name: "Multisport Plus", src: "/images/karty/multisport-plus.jpg" },
+  { name: "BeActive", src: "/images/karty/beactive.jpg" },
+  { name: "FitProfit", src: "/images/karty/fitprofit.jpg" },
+  { name: "FitSport", src: "/images/karty/fitsport.jpg" },
+];
 
 export const ADDRESS = {
   place: "Zdrofit Koński Jar",
