@@ -1168,6 +1168,11 @@
   background: var(--bg);
 }
 
+/* Pomarańczowy napis „Wybieram” (ramka biała jak w innych przyciskach) */
+.single .btnOutline:not(:hover) {
+  color: var(--accent);
+}
+
 .single h3 {
   font-size: var(--fs-h3);
   margin-bottom: 4px;
