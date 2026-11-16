@@ -490,28 +490,6 @@
   object-position: center 29%;
 }
 
-/* Komputer: węższe zdjęcie = mniejsze powiększenie pionowej fotografii,
-   więc mieści się więcej sylwetki (od czapki po kolana) */
-@media (min-width: 961px) {
-  .ctaPhoto {
-    width: 40%;
-    /* Krótsze wygaszanie niż w „Poznaj trenera” – sylwetka zostaje ostra,
-       w tło przechodzi tylko lewy brzeg zdjęcia */
-    --fade: linear-gradient(
-      270deg,
-      #000 55%,
-      rgba(0, 0, 0, 0.75) 72%,
-      rgba(0, 0, 0, 0.35) 87%,
-      transparent 100%
-    );
-  }
-
-  .ctaPhoto img {
-    /* Głowa blisko górnej krawędzi */
-    object-position: center 30%;
-  }
-}
-
 /* ---------- Tło ze zdjęciem i odbiciami (komponent MirrorPhotoBg) ----------
    Zdjęcie na środku, na pełną wysokość sekcji. Po bokach jego lustrzane
    odbicia – boki wyglądają jak dalszy ciąg siłowni, lekko rozmyty
@@ -1363,7 +1341,7 @@
     linear-gradient(135deg, #4a2e28, var(--bg-2));
 }
 
-/* „Blisko stacji metra M1 Ursynów” pod adresem */
+/* „Metro stacja Ursynów” pod adresem */
 .transit {
   display: flex;
   align-items: center;
