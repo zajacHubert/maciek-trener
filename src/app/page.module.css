@@ -1881,8 +1881,8 @@
   .ctaSection {
     min-height: calc(100svh - var(--header-h));
     justify-content: flex-end;
-    /* Napis z przyciskiem podniesione nieco wyżej nad dolną krawędź */
-    padding-bottom: calc(clamp(48px, 8svh, 80px) + 20px);
+    /* Napis z przyciskiem blisko dolnej krawędzi sekcji */
+    padding-bottom: 32px;
   }
 
   .ctaPhoto {
