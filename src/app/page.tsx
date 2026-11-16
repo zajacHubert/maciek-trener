@@ -303,24 +303,10 @@ export default function Home() {
         </section>
 
         <section className={cx(styles.cta, styles.concrete)}>
-          <div className={styles.ctaPhotos} aria-hidden="true">
-            {/* Rozmyty pas: odbicie | kopia zdjęcia | odbicie */}
-            <div className={styles.ctaBlurRow}>
-              <div className={cx(styles.ctaPhotoSide, styles.ctaPhotoLeft)}>
-                <CtaPhoto />
-              </div>
-              <div className={styles.ctaPhotoCenter}>
-                <CtaPhoto />
-              </div>
-              <div className={cx(styles.ctaPhotoSide, styles.ctaPhotoRight)}>
-                <CtaPhoto />
-              </div>
-            </div>
-            {/* Ostre zdjęcie na wierzchu */}
-            <div className={styles.ctaPhoto}>
-              <CtaPhoto />
-            </div>
-          </div>
+          <MirrorPhotoBg
+            src="/images/trener-na-lawce.jpg"
+            className={styles.ctaMirror}
+          />
           <h2 className={styles.ctaTitle}>
             <span>Gotowy na zmianę?</span>
             <span>Poprowadzę Cię krok po kroku</span>
@@ -384,7 +370,14 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="kontakt" className={styles.section}>
+        <section
+          id="kontakt"
+          className={cx(styles.section, styles.contactSection, styles.concrete)}
+        >
+          <MirrorPhotoBg
+            src="/images/trener-przy-hantlach.jpg"
+            className={styles.contactMirror}
+          />
           <div className={cx(styles.container, styles.contact)}>
             <div>
               <h2 className={styles.sectionTitle}>Kontakt</h2>
@@ -467,15 +460,25 @@ function PhoneIcon() {
   );
 }
 
-// To samo zdjęcie (ten sam plik, pobierany raz) w środku i w odbiciach po bokach
-function CtaPhoto() {
+/* Tło sekcji ze zdjęciem: na komputerze ostre zdjęcie na środku, a po
+   bokach jego rozmyte lustrzane odbicia, łagodnie znikające w tle; na
+   telefonie samo zdjęcie na całą szerokość. To samo zdjęcie (ten sam plik,
+   pobierany raz) w środku i w odbiciach. */
+function MirrorPhotoBg({ src, className }: { src: string; className?: string }) {
+  const photo = (
+    <Image src={src} alt="" fill sizes="(max-width: 960px) 100vw, 40vw" />
+  );
   return (
-    <Image
-      src="/images/trener-na-lawce.jpg"
-      alt=""
-      fill
-      sizes="(max-width: 960px) 100vw, 40vw"
-    />
+    <div className={cx(styles.mirrorBg, className)} aria-hidden="true">
+      {/* Rozmyty pas: odbicie | kopia zdjęcia | odbicie */}
+      <div className={styles.mirrorBlurRow}>
+        <div className={cx(styles.mirrorSide, styles.mirrorLeft)}>{photo}</div>
+        <div className={styles.mirrorCenter}>{photo}</div>
+        <div className={cx(styles.mirrorSide, styles.mirrorRight)}>{photo}</div>
+      </div>
+      {/* Ostre zdjęcie na wierzchu */}
+      <div className={styles.mirrorPhoto}>{photo}</div>
+    </div>
   );
 }
 
