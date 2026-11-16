@@ -214,8 +214,17 @@ export default function Home() {
               podczas procesu budowania sylwetki, poprawy zdrowia i jakości
               życia.
             </p>
+          </div>
+        </section>
 
-            <h3 className={styles.stepsTitle}>Jak wygląda współpraca</h3>
+        <section
+          className={cx(styles.section, styles.stepsSection, styles.parallax)}
+          aria-labelledby="steps-title"
+        >
+          <div className={styles.container}>
+            <h2 id="steps-title" className={styles.stepsTitle}>
+              Jak wygląda współpraca
+            </h2>
             <ol className={styles.steps}>
               {STEPS.map((step, i) => (
                 <li key={step.title} className={styles.step}>

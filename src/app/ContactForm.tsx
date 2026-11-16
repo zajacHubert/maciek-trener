@@ -215,7 +215,11 @@ export default function ContactForm() {
 
         <label>
           Coś jeszcze? (opcjonalnie)
-          <textarea name="message" rows={4} />
+          <textarea
+            name="message"
+            rows={4}
+            placeholder="Np. kontuzje lub problemy zdrowotne, dotychczasowe doświadczenie z treningiem, preferowane dni i godziny treningów."
+          />
         </label>
 
         {/* Pułapka na boty – niewidoczna dla ludzi */}

@@ -83,7 +83,7 @@ export const STEPS = [
   {
     title: "Konsultacja",
     note: "30–45 minut · bezpłatnie",
-    text: "Bezpłatna rozmowa wstępna. Omawiamy Twój cel, przedstawiasz swoją dotychczasową przygodę ze sportem/siłownią, Twoją historię zdrowotną. Wstępna weryfikacja, czy nadajemy się do współpracy.",
+    text: "Rozmowa wstępna. Omawiamy Twój cel, przedstawiasz swoją dotychczasową przygodę ze sportem/siłownią, Twoją historię zdrowotną. Sprawdzamy, czy nadajemy na tych samych falach i czy chcemy zacząć współpracę.",
   },
   {
     title: "Plan działania",
