@@ -244,7 +244,7 @@ export default function ContactForm() {
         ))}
 
         <label htmlFor="message">
-          Coś jeszcze? (opcjonalnie)
+          Dodatkowe informacje (opcjonalnie)
           <textarea
             id="message"
             name="message"
