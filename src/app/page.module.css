@@ -1493,24 +1493,31 @@
   color: var(--text);
 }
 
+/* Wspólny wygląd wszystkich pól (tekst, e-mail, telefon, listy, wiadomość):
+   ta sama czcionka, wielkość, grubość i wysokość linii. Normalna szerokość
+   czcionki – wąska odmiana z reszty strony jest w polach mało czytelna.
+   Wpisany / wybrany tekst pogrubiony, podpowiedzi cienkie (niżej). */
 .form input,
-.form textarea {
-  font: inherit;
+.form textarea,
+.form select {
   font-family: var(--font-body);
   font-size: 16px;
-  /* Wpisywany tekst w normalnej szerokości (jak w selectach) – wąska
-     odmiana z reszty strony jest w polach mało czytelna */
   font-stretch: 100%;
   font-weight: 600;
+  line-height: 1.5;
   letter-spacing: normal;
   text-transform: none;
   color: var(--text);
   background: transparent;
   border: none;
   border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 0;
   padding: 10px 0;
-  resize: vertical;
   transition: border-color 0.2s;
+}
+
+.form textarea {
+  resize: vertical;
 }
 
 /* Autouzupełnianie przeglądarki (Chrome, Safari, Edge) nadaje polom
@@ -1536,11 +1543,11 @@
   color: var(--text);
 }
 
-/* Podpowiedź cieńsza niż wpisany tekst, żeby się od niego odróżniała */
+/* Podpowiedzi (przykładowy tekst w wiadomości i „Wybierz…” w listach) –
+   cieńsze i przygaszone, żeby odróżniały się od wpisanego tekstu */
 .form textarea::placeholder {
   font-weight: 400;
   color: rgba(255, 255, 255, 0.7);
-  line-height: 1.5;
 }
 
 .form input:focus,
@@ -1578,13 +1585,20 @@
   min-height: 1.5em;
   font-family: var(--font-body);
   font-size: var(--fs-small);
+  /* Ta sama (normalna) szerokość czcionki co w polach */
+  font-stretch: 100%;
   line-height: 1.5;
   letter-spacing: normal;
   text-transform: none;
 }
 
+/* Błąd: jaśniejszy czerwony, pogrubiony, z cieniem – czytelny na zdjęciu
+   w tle */
 .form .fieldError {
-  color: var(--error);
+  font-size: 14px;
+  font-weight: 600;
+  color: #ff7280;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.85);
 }
 
 .section .fieldHint {
@@ -1615,47 +1629,118 @@
   border-right: 2px solid var(--accent);
   border-bottom: 2px solid var(--accent);
   transform: translateY(-75%) rotate(45deg);
+  transition: transform 0.2s;
   pointer-events: none;
 }
 
+/* Lista otwarta – strzałka w górę */
+.selectWrap:has(select:open)::after {
+  transform: translateY(-25%) rotate(-135deg);
+}
+
+/* Czcionka, kolory i linia – wspólne z polami tekstowymi (wyżej) */
 .form select {
   appearance: none;
   width: 100%;
-  font-family: var(--font-body);
-  font-size: 16px;
-  /* Wybrana odpowiedź pogrubiona jak wpisany tekst */
-  font-weight: 600;
-  letter-spacing: normal;
-  text-transform: none;
-  color: var(--text);
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.7);
-  border-radius: 0;
-  padding: 10px 28px 10px 0;
+  padding-right: 28px;
   cursor: pointer;
-  transition: border-color 0.2s;
 }
 
 .form select:hover {
   border-color: var(--text);
 }
 
+/* Osobno :focus i :open – przeglądarka, która nie zna :open, odrzuciłaby
+   całą regułę z listą selektorów */
 .form select:focus {
   outline: none;
   border-color: var(--text);
   box-shadow: 0 1px 0 0 var(--text);
 }
 
-/* Nic nie wybrane („Wybierz…”) – cieńszy, przygaszony tekst */
-.form select:has(option[value=""]:checked) {
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.8);
+.form select:open {
+  border-color: var(--text);
+  box-shadow: 0 1px 0 0 var(--text);
 }
 
+/* Nic nie wybrane („Wybierz…”) – jak podpowiedź w polu wiadomości */
+.form select:has(option[value=""]:checked) {
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Rozwijana lista – starsze przeglądarki i telefony pokazują systemową
+   listę; ustawiamy jej przynajmniej ciemne tło i jasny tekst */
 .form select option {
+  font-weight: 400;
   color: var(--text);
-  background: var(--bg-2);
+  background: var(--bg-3);
+}
+
+/* Nowsze przeglądarki (Chrome, Edge) pozwalają ostylować całą listę:
+   ciemna, betonowa karta pod polem, opcje w czcionce strony, najechana
+   opcja z pomarańczowym paskiem, wybrana na pomarańczowo. */
+@supports (appearance: base-select) {
+  .form select,
+  .form select::picker(select) {
+    appearance: base-select;
+  }
+
+  /* Strzałka jest własna (.selectWrap::after) */
+  .form select::picker-icon {
+    display: none;
+  }
+
+  .form select::picker(select) {
+    margin-top: 6px;
+    padding: 6px 0;
+    background: #2c2b32;
+    border: 1px solid var(--line);
+    border-top: 2px solid var(--accent);
+    border-radius: 0;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+    color: var(--text);
+  }
+
+  .form select option {
+    padding: 12px 18px;
+    border-left: 3px solid transparent;
+    background: transparent;
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-stretch: 100%;
+    font-weight: 400;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.85);
+    cursor: pointer;
+    transition:
+      background-color 0.15s,
+      color 0.15s;
+  }
+
+  /* Znaczek „✓” przy wybranej opcji niepotrzebny – wyróżnia ją kolor */
+  .form select option::checkmark {
+    display: none;
+  }
+
+  .form select option:hover,
+  .form select option:focus-visible {
+    outline: none;
+    background: rgba(255, 255, 255, 0.06);
+    border-left-color: var(--accent);
+    color: var(--text);
+  }
+
+  .form select option:checked {
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  /* „Wybierz…” na liście – tylko jako podpowiedź, przygaszone */
+  .form select option[value=""] {
+    color: rgba(255, 255, 255, 0.5);
+    font-style: italic;
+  }
 }
 
 .formHidden {
