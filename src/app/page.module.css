@@ -490,19 +490,35 @@
   object-position: center 29%;
 }
 
-/* Komputer: sekcja wyższa niż ekran – zdjęcie (ta sama szerokość
-   i wygaszanie) pokazuje sylwetkę mniej więcej do kolan. Wysokość liczona
-   od szerokości ekranu, bo od niej zależy powiększenie zdjęcia. */
+/* Komputer: zdjęcie z wygaszaniem jak w „Poznaj trenera”, w sekcji o 25%
+   wyższej niż ekran. Rozmiar zdjęcia (a więc i postaci) zależy od jego
+   szerokości, a wysokość sekcji od wysokości ekranu – dlatego szerokość
+   ograniczamy też wysokością ekranu (60vw, ale nie więcej niż 108% wysokości;
+   na 16:9 to te same 60vw). Inaczej na szerokim monitorze postać rośnie
+   i mieści się jej coraz mniej. */
 @media (min-width: 961px) {
   .ctaSection {
-    min-height: max(100vh, 80vw);
+    --cta-photo-w: min(60vw, 108vh);
+    min-height: 125vh;
   }
 
-  /* Góra kadru jak wcześniej (głowa tuż pod górną krawędzią) – sekcja
-     wydłuża się tylko w dół. Przesunięcie liczone od szerokości zdjęcia
-     (60vw), więc kadr jest ten sam na każdym ekranie. */
+  @supports (height: 100svh) {
+    .ctaSection {
+      --cta-photo-w: min(60vw, 108svh);
+      min-height: 125svh;
+    }
+  }
+
+  .ctaPhoto {
+    width: var(--cta-photo-w);
+  }
+
+  /* Zdjęcie przycięte od góry: czubek głowy przy samym przyklejonym
+     nagłówku, dzięki czemu na dole widać więcej sylwetki. Głowa jest
+     na zdjęciu na wysokości ~39% jego szerokości. */
   .ctaPhoto img {
-    object-position: center -14vw;
+    object-position: center
+      calc(var(--header-h) + 2px - var(--cta-photo-w) * 0.388);
   }
 }
 
