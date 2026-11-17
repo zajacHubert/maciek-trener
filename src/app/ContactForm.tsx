@@ -53,6 +53,15 @@ const SELECTS = [
   },
 ];
 
+// Kolejność pól w formularzu i id inputu, do którego przewijamy przy błędzie
+// (brak formy kontaktu → pole e-mail).
+const FIELD_ORDER: readonly (readonly [Field, string])[] = [
+  ["name", "name"],
+  ["email", "email"],
+  ["phone", "phone"],
+  ["contact", "email"],
+];
+
 export default function ContactForm() {
   const [values, setValues] = useState<Values>({
     name: "",
@@ -96,11 +105,17 @@ export default function ContactForm() {
   const handleSubmit = (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     touch("name", "email", "phone", "contact");
-    if (Object.keys(errors).length > 0) {
-      const first = e.currentTarget.querySelector<HTMLElement>(
-        "[aria-invalid='true']",
+    // Atrybut aria-invalid pojawi się dopiero po przerenderowaniu, więc
+    // pierwsze błędne pole wybieramy na podstawie samych błędów.
+    const firstInvalid = FIELD_ORDER.find(([field]) => errors[field]);
+    if (firstInvalid) {
+      const input = e.currentTarget.querySelector<HTMLElement>(
+        `#${firstInvalid[1]}`,
       );
-      first?.focus();
+      // Na telefonie sam fokus nie zawsze przewija do pola (i może je
+      // zasłonić przyklejony nagłówek), więc przewijamy jawnie na środek.
+      input?.scrollIntoView({ behavior: "smooth", block: "center" });
+      input?.focus({ preventScroll: true });
       return;
     }
     const formData = new FormData(e.currentTarget);
@@ -325,7 +340,7 @@ function PrivacyNote() {
         odpowiedzi na wiadomość.
       </p>
       <details>
-        <summary>Więcej o przetwarzaniu danych</summary>
+        <summary>Dodatkowe informacje</summary>
         <ul>
           <li>
             <strong>Administrator:</strong> Maciej Lubowski, e-mail:{" "}

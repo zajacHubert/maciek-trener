@@ -1857,9 +1857,12 @@
     border-top: 1px solid var(--line);
   }
 
-  .nav .navCta {
+  .nav .navCta,
+  .nav .navCta:hover {
     border: none;
     border-top: 1px solid var(--line);
+    background: var(--accent);
+    color: var(--text);
   }
 
   .nav .navInstagram {
