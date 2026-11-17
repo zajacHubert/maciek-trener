@@ -1677,9 +1677,12 @@
   background: var(--bg-3);
 }
 
-/* Nowsze przeglądarki (Chrome, Edge) pozwalają ostylować całą listę:
-   ciemna, betonowa karta pod polem, opcje w czcionce strony, najechana
-   opcja z pomarańczowym paskiem, wybrana na pomarańczowo. */
+/* Komputer (mysz) w nowszych przeglądarkach (Chrome, Edge): cała lista
+   ostylowana – ciemna, betonowa karta pod polem, opcje w czcionce strony,
+   najechana opcja z pomarańczowym paskiem, wybrana na pomarańczowo.
+   Telefony i tablety zostają przy systemowej liście (osobne okno z opcjami
+   i kółkiem do zaznaczenia) – na dotyk jest wygodniejsza i czytelniejsza. */
+@media (hover: hover) and (pointer: fine) {
 @supports (appearance: base-select) {
   .form select,
   .form select::picker(select) {
@@ -1693,54 +1696,86 @@
 
   .form select::picker(select) {
     margin-top: 6px;
-    padding: 6px 0;
-    background: #2c2b32;
-    border: 1px solid var(--line);
+    padding: 0;
+    background: var(--bg-3);
+    border: 1px solid rgba(255, 255, 255, 0.25);
     border-top: 2px solid var(--accent);
     border-radius: 0;
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
     color: var(--text);
   }
 
+  /* Każda opcja w osobnym wierszu („rynnie”) oddzielonym linią,
+     z kółkiem do zaznaczenia na końcu – jak systemowa lista na telefonie */
   .form select option {
-    padding: 12px 18px;
-    border-left: 3px solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
     background: transparent;
     font-family: var(--font-body);
     font-size: 16px;
     font-stretch: 100%;
-    font-weight: 400;
+    font-weight: 500;
     line-height: 1.4;
-    color: rgba(255, 255, 255, 0.85);
+    color: var(--text);
     cursor: pointer;
-    transition:
-      background-color 0.15s,
-      color 0.15s;
+    transition: background-color 0.15s;
   }
 
-  /* Znaczek „✓” przy wybranej opcji niepotrzebny – wyróżnia ją kolor */
+  .form select option:last-child {
+    border-bottom: none;
+  }
+
+  /* Systemowy znaczek „✓” zastępuje kółko (niżej) */
   .form select option::checkmark {
     display: none;
+  }
+
+  .form select option::after {
+    content: "";
+    flex: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    transition:
+      border-color 0.15s,
+      background-color 0.15s;
   }
 
   .form select option:hover,
   .form select option:focus-visible {
     outline: none;
-    background: rgba(255, 255, 255, 0.06);
-    border-left-color: var(--accent);
-    color: var(--text);
+    background: rgba(255, 255, 255, 0.08);
   }
 
+  .form select option:hover::after,
+  .form select option:focus-visible::after {
+    border-color: var(--text);
+  }
+
+  /* Wybrana opcja: pomarańczowe kółko z kropką w środku */
   .form select option:checked {
     font-weight: 600;
-    color: var(--accent);
   }
 
-  /* „Wybierz…” na liście – tylko jako podpowiedź, przygaszone */
-  .form select option[value=""] {
-    color: rgba(255, 255, 255, 0.5);
-    font-style: italic;
+  .form select option:checked::after {
+    border-color: var(--accent);
+    background: radial-gradient(
+      circle,
+      var(--accent) 0 4px,
+      transparent 4.5px
+    );
   }
+
+  /* „Wybierz…” to tylko podpowiedź – na liście się nie pokazuje */
+  .form select option[value=""] {
+    display: none;
+  }
+}
 }
 
 .formHidden {
