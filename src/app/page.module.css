@@ -1498,6 +1498,10 @@
   font: inherit;
   font-family: var(--font-body);
   font-size: 16px;
+  /* Wpisywany tekst w normalnej szerokości (jak w selectach) – wąska
+     odmiana z reszty strony jest w polach mało czytelna */
+  font-stretch: 100%;
+  font-weight: 600;
   letter-spacing: normal;
   text-transform: none;
   color: var(--text);
@@ -1532,7 +1536,9 @@
   color: var(--text);
 }
 
+/* Podpowiedź cieńsza niż wpisany tekst, żeby się od niego odróżniała */
 .form textarea::placeholder {
+  font-weight: 400;
   color: rgba(255, 255, 255, 0.7);
   line-height: 1.5;
 }
@@ -1617,6 +1623,8 @@
   width: 100%;
   font-family: var(--font-body);
   font-size: 16px;
+  /* Wybrana odpowiedź pogrubiona jak wpisany tekst */
+  font-weight: 600;
   letter-spacing: normal;
   text-transform: none;
   color: var(--text);
@@ -1639,7 +1647,9 @@
   box-shadow: 0 1px 0 0 var(--text);
 }
 
+/* Nic nie wybrane („Wybierz…”) – cieńszy, przygaszony tekst */
 .form select:has(option[value=""]:checked) {
+  font-weight: 400;
   color: rgba(255, 255, 255, 0.8);
 }
 
