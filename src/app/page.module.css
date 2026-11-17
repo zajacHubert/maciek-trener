@@ -1836,6 +1836,29 @@
     width: 28px;
     height: 2px;
     background: var(--text);
+    transition:
+      transform 0.25s ease,
+      opacity 0.2s ease;
+  }
+
+  /* Otwarte menu: burger zamienia się w X (kreski są co 8px:
+     2px wysokości + 6px odstępu) */
+  .navToggle:checked ~ .burger span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  .navToggle:checked ~ .burger span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .navToggle:checked ~ .burger span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .burger span {
+      transition: none;
+    }
   }
 
   .nav {
