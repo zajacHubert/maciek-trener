@@ -84,7 +84,7 @@ export const PLANS: Plan[] = [
   },
   {
     name: "Pakiet Transformacja",
-    price: "4599 zł",
+    price: "4699 zł",
     features: [
       "30 treningów (3–4 razy w tygodniu)",
       "Analiza mobilności i zakresu ruchu",
@@ -98,7 +98,7 @@ export const PLANS: Plan[] = [
 /** Współpraca online – osobna karta pod pakietami (bez treningów na siłowni). */
 export const ONLINE_PLAN: Plan & { description: string } = {
   name: "Współpraca Online (3 miesiące)",
-  price: "1119 zł",
+  price: "1199 zł",
   description:
     "Dla osób, które potrzebują prowadzenia i planu, ale trenują samodzielnie.",
   features: [
