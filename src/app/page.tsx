@@ -61,6 +61,17 @@ export default function Home() {
             <span className={styles.brandName}>Maciej Lubowski</span>
           </a>
 
+          {/* Tylko mobile: Instagram w nagłówku, obok przycisku menu */}
+          <a
+            href={INSTAGRAM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.headerInstagram}
+            aria-label={`Instagram @${CONTACT.instagram}`}
+          >
+            <InstagramIcon />
+          </a>
+
           <input
             type="checkbox"
             id="nav-toggle"
@@ -146,15 +157,6 @@ export default function Home() {
                 Umów trening
               </a>
             </div>
-            <a
-              href={INSTAGRAM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.heroInstagram}
-              aria-label={`Instagram @${CONTACT.instagram}`}
-            >
-              <InstagramIcon />
-            </a>
           </div>
         </section>
 

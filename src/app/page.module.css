@@ -201,7 +201,8 @@
 }
 
 .navToggle,
-.burger {
+.burger,
+.headerInstagram {
   display: none;
 }
 
@@ -333,20 +334,6 @@
 .heroLocation,
 .heroButtons {
   text-shadow: none;
-}
-
-/* Ikonka Instagrama pod przyciskami – tylko na telefonie */
-.heroInstagram {
-  display: none;
-  margin-top: 28px;
-  font-size: 34px;
-  line-height: 0;
-  color: var(--accent);
-  transition: opacity 0.2s;
-}
-
-.heroInstagram:hover {
-  opacity: 0.8;
 }
 
 .heroButtons {
@@ -1832,6 +1819,23 @@
     padding: 8px;
   }
 
+  /* Instagram w nagłówku, tuż na lewo od przycisku menu (margin-left: auto
+     odsuwa go od logo, burger stoi zaraz za nim) */
+  .headerInstagram {
+    display: block;
+    margin-left: auto;
+    margin-right: 8px;
+    padding: 8px;
+    font-size: 26px;
+    line-height: 0;
+    color: var(--accent);
+    transition: opacity 0.2s;
+  }
+
+  .headerInstagram:hover {
+    opacity: 0.8;
+  }
+
   .burger span {
     width: 28px;
     height: 2px;
@@ -2074,10 +2078,6 @@
     max-width: 320px;
   }
 
-  .heroInstagram {
-    display: inline-block;
-    margin-top: 20px;
-  }
 
   /* Telefon: zdjęcie wypełnia całą szerokość, bez odbić po bokach
      i bez wygaszania brzegów */
