@@ -1948,10 +1948,14 @@
     padding-bottom: 32px;
   }
 
+  /* Mały odstęp pod tekstem: następna sekcja ma prawie to samo tło, więc
+     pełny dolny odstęp sumowałby się z jej górnym w jedną dużą pustkę.
+     „Gotowy na zmianę?” ustawia swój odstęp niżej (.ctaSection). */
   .aboutSection {
     min-height: 0;
     flex-direction: column;
     padding-top: 0;
+    padding-bottom: 16px;
   }
 
   .aboutPhoto {
