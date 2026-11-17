@@ -124,7 +124,7 @@ export default function Transformations({
         <button
           type="button"
           className={styles.sliderArrow}
-          aria-label="Poprzednia przemiana"
+          aria-label="Poprzednia metamorfoza"
           disabled={slide === 0}
           onClick={() => goTo(slide - 1)}
         >
@@ -135,7 +135,7 @@ export default function Transformations({
             <button
               key={item.after.src}
               type="button"
-              aria-label={`Przemiana ${i + 1} z ${items.length}`}
+              aria-label={`Metamorfoza ${i + 1} z ${items.length}`}
               aria-current={slide === i}
               onClick={() => goTo(i)}
             />
@@ -144,7 +144,7 @@ export default function Transformations({
         <button
           type="button"
           className={styles.sliderArrow}
-          aria-label="Następna przemiana"
+          aria-label="Następna metamorfoza"
           disabled={slide === items.length - 1}
           onClick={() => goTo(slide + 1)}
         >

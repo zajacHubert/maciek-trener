@@ -29,7 +29,7 @@ export const NAV = [
   { href: "#start", label: "Start" },
   { href: "#o-mnie", label: "O mnie" },
   { href: "#oferta", label: "Oferta" },
-  { href: "#przemiany", label: "Przemiany" },
+  { href: "#metamorfozy", label: "Metamorfozy" },
   { href: "#cennik", label: "Cennik" },
   { href: "#studio", label: "Lokalizacja" },
   { href: "#kontakt", label: "Kontakt" },

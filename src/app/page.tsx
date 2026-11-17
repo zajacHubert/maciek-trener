@@ -191,9 +191,9 @@ export default function Home() {
               <p className={styles.eyebrow}>O mnie</p>
               <h2 className={styles.sectionTitle}>Poznaj trenera</h2>
               <p className={styles.lead}>
-                Nazywam się Maciej Lubowski. Mam <TrainerAge /> lat. Od ponad dekady pracuję
-                jako trener personalny, a moja przygoda z siłownią trwa
-                nieprzerwanie od <TrainingYears /> lat.
+                Nazywam się Maciej Lubowski. Mam <TrainerAge /> lat. Od ponad
+                dekady pracuję jako trener personalny, a moja przygoda z
+                siłownią trwa nieprzerwanie od <TrainingYears /> lat.
               </p>
               <p>
                 Kursy i szkolenia dały mi podstawy, ale to tysiące godzin
@@ -255,12 +255,12 @@ export default function Home() {
         </section>
 
         <section
-          id="przemiany"
+          id="metamorfozy"
           className={cx(styles.section, styles.transformationsSection)}
         >
           <div className={styles.container}>
             <p className={styles.eyebrow}>Efekty współpracy</p>
-            <h2 className={styles.sectionTitle}>Przemiany podopiecznych</h2>
+            <h2 className={styles.sectionTitle}>Metamorfozy podopiecznych</h2>
             <Transformations items={TRANSFORMATIONS} />
           </div>
         </section>
@@ -458,13 +458,21 @@ export default function Home() {
                   </a>
                 </li>
                 <li>
-                  <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={WHATSAPP_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <WhatsAppIcon />
                     WhatsApp
                   </a>
                 </li>
                 <li>
-                  <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={INSTAGRAM_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <InstagramIcon />@{CONTACT.instagram}
                   </a>
                 </li>
@@ -490,8 +498,7 @@ export default function Home() {
       </main>
 
       <footer className={styles.footer}>
-        © <CurrentYear /> Maciej Lubowski · Trener personalny Warszawa
-        Ursynów
+        © <CurrentYear /> Maciej Lubowski · Trener personalny Warszawa Ursynów
       </footer>
     </>
   );
@@ -538,7 +545,13 @@ function PhoneIcon() {
    bokach jego rozmyte lustrzane odbicia, łagodnie znikające w tle; na
    telefonie samo zdjęcie na całą szerokość. To samo zdjęcie (ten sam plik,
    pobierany raz) w środku i w odbiciach. */
-function MirrorPhotoBg({ src, className }: { src: string; className?: string }) {
+function MirrorPhotoBg({
+  src,
+  className,
+}: {
+  src: string;
+  className?: string;
+}) {
   const photo = (
     <Image src={src} alt="" fill sizes="(max-width: 960px) 200vw, 60vw" />
   );
@@ -570,11 +583,7 @@ async function StatValue({
 /* Znak metra warszawskiego: czerwone „M” na białym tle */
 function MetroIcon() {
   return (
-    <svg
-      className={styles.metroIcon}
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-    >
+    <svg className={styles.metroIcon} viewBox="0 0 24 24" aria-hidden="true">
       <rect width="24" height="24" rx="4" fill="#fff" />
       <path
         d="M3.5 20V4h4.2L12 10.4 16.3 4h4.2v16h-4V10.6L12 17l-4.5-6.4V20Z"
