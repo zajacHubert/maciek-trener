@@ -1,10 +1,9 @@
 // Treści strony w jednym miejscu – zmiany cen, pakietów czy kontaktu tylko tutaj.
 
 /** Adres strony i teksty SEO (tytuł, opis, słowa kluczowe).
-    Po podpięciu własnej domeny wystarczy ustawić NEXT_PUBLIC_SITE_URL
-    w zmiennych środowiskowych na Vercelu. */
+    Adres można nadpisać zmienną NEXT_PUBLIC_SITE_URL (np. do testów). */
 export const SITE = {
-  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://maciek-trener.vercel.app")
+  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://maciejlubowski.pl")
     .replace(/\/$/, ""),
   name: "Maciej Lubowski – Trener personalny",
   title: "Trener personalny Warszawa Ursynów | Maciej Lubowski",
