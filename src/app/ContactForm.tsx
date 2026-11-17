@@ -340,7 +340,7 @@ function PrivacyNote() {
         odpowiedzi na wiadomość.
       </p>
       <details>
-        <summary>Dodatkowe informacje</summary>
+        <summary>Więcej o przetwarzaniu danych</summary>
         <ul>
           <li>
             <strong>Administrator:</strong> Maciej Lubowski, e-mail:{" "}
