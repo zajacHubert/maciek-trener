@@ -1,5 +1,6 @@
 "use server";
 
+import { checkBotId } from "botid/server";
 import { Resend } from "resend";
 import { MAX_LENGTH, validate } from "./contactValidation";
 
@@ -25,6 +26,11 @@ export async function sendContact(formData: FormData): Promise<SendResult> {
 
   // Ukryte pole – wypełniają je tylko boty. Udajemy sukces, nic nie wysyłamy.
   if (get("website")) return { ok: true };
+
+  // BotID – zatrzymuje też boty, które wywołują akcję z pominięciem
+  // formularza (i ukrytego pola).
+  const { isBot } = await checkBotId();
+  if (isBot) return { ok: false, error: GENERIC_ERROR };
 
   const values = {
     name: get("name"),
