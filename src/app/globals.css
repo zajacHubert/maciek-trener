@@ -37,6 +37,10 @@
 }
 
 html {
+  /* Wyłącza automatyczne powiększanie tekstu w przeglądarkach wbudowanych
+     w aplikacje (np. Facebook na Androidzie) i w Safari na iOS */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
   scroll-behavior: smooth;
   scroll-padding-top: var(--header-h);
 }
